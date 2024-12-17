@@ -82,6 +82,37 @@
                                  
                                 </div>
 
+                                <div class="row">
+                                    <div class="col-md-12 mb-3 pb-2">
+
+                                        <div data-mdb-input-init class="form-outline">
+                                                    <label for="category" class="form-label">Category</label>
+
+
+                                                    <select class="form-select" id="category" name="category">
+                                                        <option value="">Select Category</option>
+                                                        <option value="Information Technology">Information Technology</option>
+                                                        <option value="Design">Design</option>
+                                                        <option value="Marketing">Marketing</option>
+                                                        <option value="Education">Education</option>
+                                                        <option value="Accounting">Accounting</option>
+                                                        <option value="Healthcare">Healthcare</option>
+                                                        <option value="Engineering">Engineering</option>
+                                                        <option value="Logistics">Logistics</option>
+                                                        <option value="Management">Management</option>
+                                                        <option value="Tourism">Tourism</option>
+                                                        <option value="Media">Media</option>
+                                                        <option value="Agriculture">Agriculture</option>
+                                                        <option value="Manufacturing">Manufacturing</option>
+                                                        <option value="Public Services">Public Services</option>
+                                                    </select>
+                                                </div>      
+
+
+                                    </div>
+
+                                </div>
+
              
 
                                 <div class="row">
@@ -204,25 +235,82 @@
                 </div>
             <hr>
             <div class="row">
-              <div class="col-sm-12">
-                <h5 class="mb-0 text-muted">Descreption:</h5>
-                 <p class>{{$job->description}}</p>
+              <div class="col-sm-3 pb-2">
+                <p class="mb-0">Category</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{$job->category}}</p>
               </div>
             </div>
             <hr>
-            <div class="row ">
-              <div class="col-sm-12">
-                <h6 class="mb-0 text-muted">{{"Location: ".$job->location}}</h6>
-                <hr>
-                <h6 class="mb-0 text-muted">{{"Duration: ".$job->duration}}</h6>
-                <hr>
+        
+
+
+
+            <div class="row">
+              <div class="col-sm-3 pb-2">
+                <p class="mb-0">Category</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{$job->description}}</p>
+              </div>
+            </div>
+            <hr>
+
+
+           
+
+            <div class="row">
+              <div class="col-sm-3 pb-2">
+                <p class="mb-0">Location</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{$job->location}}</p>
+              </div>
+            </div>
+            <hr>
+
+            
+
+
+
+
+            <div class="row">
+              <div class="col-sm-3 pb-2">
+                <p class="mb-0">Duration</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0">{{$job->duration}}</p>
+              </div>
+            </div>
+            <hr>
+
+            <div class="row">
+              <div class="col-sm-3 pb-2">
+                <p class="mb-0">Status</p>
+              </div>
+              <div class="col-sm-9">
                 @if ($job->status === 'open')
-                    <h6 class="text-success">{{"Status: ".$job->status}}</h6>
-                 @else
-                    <h6 class="text-danger">{{"Status: ".$job->status}}</h6>                
-                @endif
-                <hr>
-                <h6 class="mb-0 text-success">{{"Salary: ". number_format($job->salary, 0) . " JOD" }}</h6> 
+                    <p class="text-success mb-0">{{$job->status}}</p>
+                @else
+                    <p class="text-danger mb-0">{{$job->status}}</p>  
+                @endif      
+              </div>
+            </div>
+            <hr>
+
+               
+
+
+                
+            <div class="row">
+              <div class="col-sm-3 pb-2">
+                <p class="mb-0 ">Salary</p>
+              </div>
+              <div class="col-sm-9">
+                <p class="text-muted mb-0 fs-4">{{number_format($job->salary, 0) . " JOD" }}</p></p>
+              </div>
+            </div>
             </div>
 
 

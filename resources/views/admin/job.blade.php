@@ -65,6 +65,37 @@
                                  
                                 </div>
 
+                                <div class="row">
+                                    <div class="col-md-12 mb-3 pb-2">
+
+                                        <div data-mdb-input-init class="form-outline">
+                                                    <label for="category" class="form-label">Category</label>
+
+
+                                                    <select class="form-select pb-2 pt-2 " id="category" name="category">
+                                                        <option value="">Select Category</option>
+                                                        <option value="Information Technology">Information Technology</option>
+                                                        <option value="Design">Design</option>
+                                                        <option value="Marketing">Marketing</option>
+                                                        <option value="Education">Education</option>
+                                                        <option value="Accounting">Accounting</option>
+                                                        <option value="Healthcare">Healthcare</option>
+                                                        <option value="Engineering">Engineering</option>
+                                                        <option value="Logistics">Logistics</option>
+                                                        <option value="Management">Management</option>
+                                                        <option value="Tourism">Tourism</option>
+                                                        <option value="Media">Media</option>
+                                                        <option value="Agriculture">Agriculture</option>
+                                                        <option value="Manufacturing">Manufacturing</option>
+                                                        <option value="Public Services">Public Services</option>
+                                                    </select>
+                                                </div>      
+
+
+                                    </div>
+
+                                </div>
+
              
 
                                 <div class="row">

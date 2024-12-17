@@ -488,6 +488,7 @@ public function AdminStore(Request $request){
                         'salary'=>'required',
                         'duration'=>'required',
                         'status'=>'required',
+                        'category'=>'required',
                     ]);
 
                     $job=new Job();
@@ -499,6 +500,7 @@ public function AdminStore(Request $request){
                     $job->salary=$request->salary;
                     $job->duration=$request->duration;
                     $job->status=$request->status;
+                    $job->category=$request->category;
                     $job->save();
                     return redirect()->route('admin.job')
                     ->with('success', 'job added successfully.');
@@ -517,6 +519,7 @@ public function AdminStore(Request $request){
                         'salary'=>'required',
                         'duration'=>'required',
                         'status'=>'required',
+                        'category'=>'required',
                     ]);
 
                     $job=Job::where('id','=',$request->id)->first();
@@ -527,6 +530,7 @@ public function AdminStore(Request $request){
                     $job->salary=$request->salary;
                     $job->duration=$request->duration;
                     $job->status=$request->status;
+                    $job->category=$request->category;
                     $job->save();
                     return redirect()->route('admin.jobview',['id'=>$job->id] )
                     ->with('success', 'job updated successfully.');
