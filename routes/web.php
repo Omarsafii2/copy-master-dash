@@ -3,7 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
-
+use App\Http\Controllers\User\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,8 +15,15 @@ use App\Http\Controllers\AdminController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::controller(HomeController::class)->group(function () {
+    Route::get('/', 'home')->name('home');
+    Route::get('/about', 'about')->name('about');
+    Route::get('/contact', 'contact')->name('contact');
+    Route::post('/contact', 'postContact')->name('contactpost');
+    Route::get('/jobs/job','job')->name('jobs.job');
+    Route::get('/jobs/{id}/jobProfile', 'jobProfile')->name('jobs.jobProfile');
+});
 
-Route::get('/',[\App\Http\Controllers\User\HomeController::class,'home'])->name('home');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
