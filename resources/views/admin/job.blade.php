@@ -7,7 +7,7 @@
 
 
                 
-                <div class="mt-2 me-2">
+<div class="mt-2 me-2">
     <button type="button" class="btn btn-primary p-2 d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#formModal">
         <i class="bi bi-plus-circle me-1"></i> Add Post
     </button>

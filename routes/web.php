@@ -1,9 +1,11 @@
 <?php
 
+use App\Http\Controllers\companies\CompanyControlller;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\User\HomeController;
+use App\Models\Company;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,6 +24,8 @@ Route::controller(HomeController::class)->group(function () {
     Route::post('/contact', 'postContact')->name('contactpost');
     Route::get('/jobs/job','job')->name('jobs.job');
     Route::get('/jobs/{id}/jobProfile', 'jobProfile')->name('jobs.jobProfile');
+    Route::get('/logCard', 'logCard')->name('logCard');
+    Route::get('/regCard', 'regCard')->name('regCard');
 });
 
 
@@ -39,6 +43,7 @@ Route::middleware('auth')->group(function () {
 Route::controller(AdminController::class)->group(function () {
     Route::get('/admin', 'login')->name('admin.login');
     Route::post('/loginpost', 'loginpost')->name('admin.loginpost');
+   
     Route::middleware('auth:admin')->group(function () {
         Route::get('/admin/super', 'index')->name('admin.super');
         Route::get('admin/index', 'index')->name('admin.index');
@@ -84,6 +89,34 @@ Route::controller(AdminController::class)->group(function () {
 
     }); 
         });
+
+ Route::controller(CompanyControlller::class)->group(function () {
+       Route::get('/CompanyReg', 'CompanyReg')->name('CompanyReg');
+       Route::post('/company/register', 'register')->name('CompanyRegPost');
+       Route::get('/CompanyLog', 'CompanyLog')->name('CompanyLog');
+       Route::post('/company/login', 'login')->name('CompanyLogPost');
+
+       Route::middleware('auth:company')->group(function () {
+           Route::get('/company/home', 'home')->name('company.home');
+           Route::get('/company/about', 'about')->name('company.about');
+           Route::get('/company/contact', 'contact')->name('company.contact');
+           Route::post('/company/contact', 'postContact')->name('company.contactpost');
+           Route::get('/company/logout', 'logout')->name('company.logout');
+           Route::get('/company/profile', 'profile')->name('company.profile');
+           Route::patch('/company/edit', 'UpdateProfile')->name('company.edit');
+           Route::delete('/company/delete/{id}', 'deleteProfile')->name('company.delete');
+           Route::post('/company/addPost','addPost')->name('company.post');
+           Route::get('/company/editPost/{id}','editPost')->name('company.editpost');
+           Route::post('/company/updatePost/{id}','updatePost')->name('company.updatepost');
+           Route::delete('/company/deletePost/{id}','deletePost')->name('company.deletepost');
+           Route::get('/company/applications/{id}','applications')->name('company.applications');
+           Route::get('/company/userProfile/{id}','UserProfile')->name('company.userprofile');
+
+       });
+
+       
+       
+ });
 
 
 

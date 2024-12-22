@@ -67,24 +67,16 @@
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link text-light active" aria-current="page" href="#">Home</a>
+                    <a class="nav-link text-light active" aria-current="page" href="/">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-light" href="#">About</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-light" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Services
-                    </a>
-                    <ul class="dropdown-menu bg-dark border-0">
-                        <li><a class="dropdown-item text-light" href="#">Web Development</a></li>
-                        <li><a class="dropdown-item text-light" href="#">SEO</a></li>
-                        <li><hr class="dropdown-divider text-light"></li>
-                        <li><a class="dropdown-item text-light" href="#">Support</a></li>
-                    </ul>
+                    <a class="nav-link text-light" href="/jobs/job">Jobs</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-light" href="#">Contact</a>
+                    <a class="nav-link text-light" href="/about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light" href="/contact">Contact</a>
                 </li>
             </ul>
 
@@ -93,9 +85,9 @@
                     @auth
                         <a href="{{ url('/dashboard') }}" class="btn btn-primary btn-sm">Dashboard</a>
                     @else
-                        <a href="{{ route('login') }}" class="btn btn-outline-light btn-sm">Log in</a>
+                        <a href="/logCard" class="btn btn-outline-light btn-sm">Log in</a>
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="btn btn-primary btn-sm">Register</a>
+                            <a href="/regCard" class="btn btn-primary btn-sm">Register</a>
                         @endif
                     @endauth
                 @endif

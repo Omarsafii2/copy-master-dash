@@ -15,7 +15,7 @@
   }
     
 :root {
-  --primary-color: #508bfc;
+  --primary-color: #0d6efd;
   --primary-color-light: #7ca9fc;
   --text-color: #ffffff;
   --bg-color: #f8f9fa;

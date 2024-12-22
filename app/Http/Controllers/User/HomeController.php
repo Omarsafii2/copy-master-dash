@@ -143,6 +143,14 @@ class HomeController extends Controller
           $job=Job::where('id','=',$id)->first();
           return view('jobs.jobProfile',compact('job'));  
       }
+
+      public function logCard(){
+          return view('logCard');
+      }
+
+      public function regCard(){
+          return view('regCard');
+      }
       
 
 
