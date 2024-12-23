@@ -23,6 +23,7 @@ class Company extends Authenticatable
         'subscription_id',
         'subscription_start_date', // Ensure this column is in the database
         'subscription_expiry',
+        'max_post'
     ];
 
     public function jobs()

@@ -1,8 +1,52 @@
 <header class="banner mb-4">
-    <x-navbar>
+    <x-comNav :profileImg="$profileImg">
         <x-slot:title>
-            Jobs
+            Job
         </x-slot:title>
+            
+@if (session('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert" id="success-message" style="transition: opacity 0.5s;">
+        {{ session('success') }}
+    </div>
+    <script>
+        setTimeout(() => {
+            const successMessage = document.getElementById('success-message');
+            if (successMessage) {
+                successMessage.style.opacity = '0'; // Start fading out
+                setTimeout(() => successMessage.remove(), 500); // Remove after fade-out
+            }
+        }, 3000); // 3-second delay before fade-out
+    </script>
+@elseif (session('error'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" id="error-message" style="transition: opacity 0.5s;">
+        {{ session('error') }}
+    </div>
+    <script>
+        setTimeout(() => {
+            const errorMessage = document.getElementById('error-message');
+            if (errorMessage) {
+                errorMessage.style.opacity = '0'; // Start fading out
+                setTimeout(() => errorMessage.remove(), 500); // Remove after fade-out
+            }
+        }, 3000); // 3-second delay before fade-out
+
+    </script>
+ @elseif (session('message'))
+    <div class="alert alert-info alert-dismissible fade show" role="alert" id="info-message" style="transition: opacity 0.5s;">
+        {{ session('message') }}
+    </div>
+    <script>
+        setTimeout(() => {
+            const infoMessage = document.getElementById('info-message');
+            if (infoMessage) {
+                infoMessage.style.opacity = '0'; // Start fading out
+                setTimeout(() => infoMessage.remove(), 500); // Remove after fade-out
+            }
+        }, 3000); // 3-second delay before fade-out
+
+    </script>
+@endif
+
         <style>
             .banner {
                 background-image: url('{{asset('/images/bradcam.png')}}');
@@ -67,7 +111,7 @@
 
             </div>
 </header>
-</x-navbar>
+</x-comNav>
 
 
 <section class=" bg-light">
@@ -152,7 +196,7 @@
                                             </div>
                                             <!-- Align the 'Apply Now' button to the right -->
                                             <div class="ms-auto">
-                                                <a href="{{url('/jobs/'.$job->id.'/jobProfile')}}" class="text-decoration-none btn btn-primary">Apply</a>
+                                                <a href="/company/jobProfile/{{$job->id}}" class="text-decoration-none btn btn-primary">Show More</a>
 
                                             </div>
                                         </div>
@@ -235,4 +279,4 @@
 
 
 
-<x-footer></x-footer>
+<x-comFooter></x-comFooter>

@@ -1,4 +1,12 @@
 <header class="banner">
+
+
+    <x-comNav :profileImg="$profileImg">
+        <x-slot:title>
+             Contact
+        </x-slot:title>
+
+            
 @if (session('success'))
     <div class="alert alert-success alert-dismissible fade show" role="alert" id="success-message" style="transition: opacity 0.5s;">
         {{ session('success') }}
@@ -24,15 +32,24 @@
                 setTimeout(() => errorMessage.remove(), 500); // Remove after fade-out
             }
         }, 3000); // 3-second delay before fade-out
-        
+
+    </script>
+ @elseif (session('message'))
+    <div class="alert alert-info alert-dismissible fade show" role="alert" id="info-message" style="transition: opacity 0.5s;">
+        {{ session('message') }}
+    </div>
+    <script>
+        setTimeout(() => {
+            const infoMessage = document.getElementById('info-message');
+            if (infoMessage) {
+                infoMessage.style.opacity = '0'; // Start fading out
+                setTimeout(() => infoMessage.remove(), 500); // Remove after fade-out
+            }
+        }, 3000); // 3-second delay before fade-out
+
     </script>
 @endif
 
-
-    <x-comNav :profileImg="$profileImg">
-        <x-slot:title>
-             Contact
-        </x-slot:title>
         <style>
             .banner {
                 background-image: url('{{asset('images/bradcam.png')}}');

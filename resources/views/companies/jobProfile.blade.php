@@ -1,8 +1,52 @@
-    <x-navbar>
-         <x-slot:title>
+<header class="banner ">
+<x-comNav :profileImg="$profileImg">
+        <x-slot:title>
             Jobs
         </x-slot:title>
-    <header class="banner ">
+
+            
+@if (session('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert" id="success-message" style="transition: opacity 0.5s;">
+        {{ session('success') }}
+    </div>
+    <script>
+        setTimeout(() => {
+            const successMessage = document.getElementById('success-message');
+            if (successMessage) {
+                successMessage.style.opacity = '0'; // Start fading out
+                setTimeout(() => successMessage.remove(), 500); // Remove after fade-out
+            }
+        }, 3000); // 3-second delay before fade-out
+    </script>
+@elseif (session('error'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" id="error-message" style="transition: opacity 0.5s;">
+        {{ session('error') }}
+    </div>
+    <script>
+        setTimeout(() => {
+            const errorMessage = document.getElementById('error-message');
+            if (errorMessage) {
+                errorMessage.style.opacity = '0'; // Start fading out
+                setTimeout(() => errorMessage.remove(), 500); // Remove after fade-out
+            }
+        }, 3000); // 3-second delay before fade-out
+
+    </script>
+ @elseif (session('message'))
+    <div class="alert alert-info alert-dismissible fade show" role="alert" id="info-message" style="transition: opacity 0.5s;">
+        {{ session('message') }}
+    </div>
+    <script>
+        setTimeout(() => {
+            const infoMessage = document.getElementById('info-message');
+            if (infoMessage) {
+                infoMessage.style.opacity = '0'; // Start fading out
+                setTimeout(() => infoMessage.remove(), 500); // Remove after fade-out
+            }
+        }, 3000); // 3-second delay before fade-out
+
+    </script>
+@endif
 
 <style>
             .banner {
@@ -39,8 +83,9 @@
                 </div>
 
             </div>
+        </x-comNav>
 </header>
-</x-navbar>
+
 
 <section class="container mt-5  mb-5">
     <div class="row justify-content-center">
@@ -109,18 +154,7 @@
 
             
                  <!-- Apply Button -->
-                <div class="text-center mt-4">
-                    @auth
-                        <form action="{{ route('apply.job', $job->id) }}" method="POST">
-                            @csrf
-                            <button type="submit" class="btn btn-primary btn-lg px-4">Apply Now</button>
-                        </form>
-                    @else
-                        <a href="{{ route('login') }}" class="btn btn-secondary btn-lg px-4">
-                            Login to Apply
-                        </a>
-                    @endauth
-                </div>
+                
             </div>
         </div>
     </div>

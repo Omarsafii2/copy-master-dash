@@ -73,7 +73,7 @@
       <div class="card-body">
         <h5 class="card-title">Users</h5>
         <p class="card-text">SignUp for users.</p>
-        <a href="#" class="btn btn-primary">Users SignUp</a>
+        <a href="register" class="btn btn-primary">Users SignUp</a>
       </div>
     </div>
   </div>

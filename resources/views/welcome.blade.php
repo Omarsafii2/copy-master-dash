@@ -1,5 +1,55 @@
+
 <header class="banner">
-    <x-navbar> 
+
+    
+
+
+    <x-navbar>
+        
+    
+@if (session('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert" id="success-message" style="transition: opacity 0.5s;">
+        {{ session('success') }}
+    </div>
+    <script>
+        setTimeout(() => {
+            const successMessage = document.getElementById('success-message');
+            if (successMessage) {
+                successMessage.style.opacity = '0'; // Start fading out
+                setTimeout(() => successMessage.remove(), 500); // Remove after fade-out
+            }
+        }, 3000); // 3-second delay before fade-out
+    </script>
+@elseif (session('error'))
+    <div class="alert alert-danger alert-dismissible fade show" role="alert" id="error-message" style="transition: opacity 0.5s;">
+        {{ session('error') }}
+    </div>
+    <script>
+        setTimeout(() => {
+            const errorMessage = document.getElementById('error-message');
+            if (errorMessage) {
+                errorMessage.style.opacity = '0'; // Start fading out
+                setTimeout(() => errorMessage.remove(), 500); // Remove after fade-out
+            }
+        }, 3000); // 3-second delay before fade-out
+
+    </script>
+ @elseif (session('message'))
+    <div class="alert alert-info alert-dismissible fade show" role="alert" id="info-message" style="transition: opacity 0.5s;">
+        {{ session('message') }}
+    </div>
+    <script>
+        setTimeout(() => {
+            const infoMessage = document.getElementById('info-message');
+            if (infoMessage) {
+                infoMessage.style.opacity = '0'; // Start fading out
+                setTimeout(() => infoMessage.remove(), 500); // Remove after fade-out
+            }
+        }, 3000); // 3-second delay before fade-out
+
+    </script>
+@endif
+
 
     <style>
         .banner {
@@ -53,16 +103,16 @@
     </div>
 </header>
 
-<section bg-light>
+<section >
     <h2 class="text-center text-primary mb-5 mt-5 fw-bold" style="font-size: 3rem">Popular Category</h2>
 
 
 
-    <div class="container text-center mt-3  bg-light">
-        <div class="row justify-content-center"> <!-- Centers the row content horizontally -->
+    <div class="container text-center mt-3  ">
+        <div class="row justify-content-center "> <!-- Centers the row content horizontally -->
             @foreach ($totalJobs as $job)
             <div class="col-md-6 col-lg-4 mb-4"> <!-- Adjust the column size for responsive design -->
-                <div class="card shadow-sm  cat-hover">
+                <div class="card shadow-sm bg-light cat-hover">
                     <div class="card-body">
                         <h5 class="card-title">{{ $job->category }}</h5>
                         <p class="card-text">{{ $job->total }} <span class="text-muted">Available Jobs</span></p>
@@ -80,7 +130,7 @@
 
 
 
-<section class="mt-5 bg-light">
+<section class="mt-5 ">
     <div class="container">
         <!-- Header Section -->
         <div class="row text-center mb-4">
@@ -157,7 +207,7 @@
                         @foreach ($jobs as $job)
                         @if ($job->status == 'open')
                         <div class="col-md-12 mb-4 job-card">
-                            <div class="card shadow-sm border-success">
+                            <div class="card bg-light shadow-sm border-success">
                                 <div class="card-body d-flex align-items-center">
                                     <img src="{{ asset($job->company->img) }}" style="width:100px; height:100px;" class="me-3 rounded-circle" alt="Job Image">
                                     <div class="w-100"> <!-- This ensures the content takes full width -->
@@ -197,7 +247,7 @@
 </section>
 
 
-<section class="py-5 bg-light">
+<section class="py-5 ">
     <div class="container mb-5">
         <h2 class="fw-bold text-primary text-center">Top Companies</h2>
     </div>
@@ -218,7 +268,7 @@
                     <div class="row">
                         @foreach ($chunk as $company)
                         <div class="col-md-4 mb-4">
-                            <div class="card shadow-sm">
+                            <div class="card bg-light shadow-sm">
                                 <img src="{{ asset($company->img) }}" class="card-img-top" alt="Company Logo" style="width: 100px; height: 100px; margin: auto; padding: 10px;">
                                 <div class="card-body text-center">
                                     <h5 class="card-title fw-bold">{{ $company->name }}</h5>
@@ -248,13 +298,13 @@
 
 
 
-<section class="py-5 bg-light mb-5">
+<section class="py-5  mb-5">
     <div class="container">
         <h2 class="fw-bold text-primary text-center mb-5">What People Are Saying</h2>
         <div class="row">
             <!-- Testimonial 1 -->
             <div class="col-md-4">
-                <div class="card shadow-sm h-100">
+                <div class="card bg-light shadow-sm h-100">
                     <div class="card-body">
                         <p class="card-text text-muted fst-italic">
                             <i class="bi bi-quote text-primary"></i>
@@ -273,7 +323,7 @@
 
             <!-- Testimonial 2 -->
             <div class="col-md-4">
-                <div class="card shadow-sm h-100">
+                <div class="card bg-light shadow-sm h-100">
                     <div class="card-body">
                         <p class="card-text text-muted fst-italic">
                             <i class="bi bi-quote text-primary"></i>
@@ -292,7 +342,7 @@
 
             <!-- Testimonial 3 -->
             <div class="col-md-4">
-                <div class="card shadow-sm h-100">
+                <div class="card bg-light shadow-sm h-100">
                     <div class="card-body">
                         <p class="card-text text-muted fst-italic">
                             <i class="bi bi-quote text-primary"></i>

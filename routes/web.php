@@ -111,6 +111,10 @@ Route::controller(AdminController::class)->group(function () {
            Route::delete('/company/deletePost/{id}','deletePost')->name('company.deletepost');
            Route::get('/company/applications/{id}','applications')->name('company.applications');
            Route::get('/company/userProfile/{id}','UserProfile')->name('company.userprofile');
+           Route::post('/company/subscribe','subscribe')->name('company.subscribe');
+           Route::get('/company/job','job')->name('company.job');
+           Route::get('/company/jobProfile/{id}','jobProfile')->name('company.jobProfile');
+           
 
        });
 

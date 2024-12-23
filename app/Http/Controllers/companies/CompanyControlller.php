@@ -7,6 +7,7 @@ use App\Models\Application;
 use App\Models\Company;
 use App\Models\Contact;
 use App\Models\Job;
+use App\Models\Review;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -28,16 +29,36 @@ class CompanyControlller extends Controller
             'cpassword' => 'required|same:password',
             'category' => 'required',
             'address' => 'required',
+            'img' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+
+
         ]);
+
+        $filename = 'profile.png';
+        if ($request->hasFile('img')) {
+            $file = $request->file('img');
+    
+            // Save the file in the 'public/uploads/user' directory
+            $filename = time() . '.' . $file->getClientOriginalExtension();
+            $file->move(public_path('uploads/company'), $filename); // Save to the public folder
+        }
+      
+        
 
         $company = new Company();
         $company->name = $request->name;
         $company->email = $request->email;
-        $company->password = bcrypt($request->password);
+        $company->password = $request->password;
         $company->category = $request->category;
         $company->address = $request->address;
+        $company->img = $filename ? 'uploads/company/' . $filename : null; // Save the relative path
+
         $company->save();
-        return view('companies.home');
+
+        Auth::guard('company')->login($company);
+        $profileImg = $company->img ?? null;
+
+        return redirect()->route('company.home');
     }
 
     public function CompanyLog()
@@ -57,6 +78,7 @@ class CompanyControlller extends Controller
             // Authentication successful, redirect to the company dashboard
             return redirect()->route('company.home')->with('success', 'Logged in successfully!');
         }
+        
 
         // Authentication failed
         return back()->withErrors(['email' => 'Invalid email or password'])->withInput();
@@ -159,6 +181,15 @@ class CompanyControlller extends Controller
         $comJobs = Auth::guard('company')->user()->jobs;
         $profileImg = $company->img ?? null;
 
+
+        $reviews = Review::where('company_id', '=', $id)->orderBy('id', 'desc') 
+                                 ->with('users') // Load the user who wrote the review
+                                 ->get();
+
+                $averageRating = Review::where('company_id', '=', $id)->avg('rating');
+                
+                $totalReviews = $reviews->count();
+
         // Paginate jobs: Fetch 6 jobs per page
         $jobs = Auth::guard('company')->user()->jobs()->orderBy('id', 'desc')->paginate(6);
 
@@ -171,7 +202,7 @@ class CompanyControlller extends Controller
             ]);
         }
 
-        return view('companies.profile', compact('company', 'comJobs', 'profileImg', 'jobs'));
+        return view('companies.profile', compact('company', 'comJobs', 'profileImg', 'jobs', 'reviews', 'averageRating', 'totalReviews'));
     }
 
 
@@ -236,34 +267,53 @@ class CompanyControlller extends Controller
         ->with('success', 'company updated successfully.');
     }
 
-    public function addPost(Request $request){
-
+    public function addPost(Request $request)
+    {
+        $company = Auth::guard('company')->user();
+    
+        // Check if the company can add a post
+        if ($company->max_post === 0 && $company->subscription_status === 'free') {
+            return redirect()->back()
+                ->with('error', 'You have reached the maximum number of posts.');
+        }
+    
+        // Validate input
         $request->validate([
-            'title'=>'required',
-            'company_id'=>'required',
-            'description'=>'required',
-            'type'=>'required',
-            'location'=>'required',
-            'salary'=>'required',
-            'duration'=>'required',
-            'status'=>'required',
-            'category'=>'required',
+            'title' => 'required',
+            'description' => 'required',
+            'type' => 'required',
+            'location' => 'required',
+            'salary' => 'required|numeric',
+            'duration' => 'required',
+            'status' => 'required|in:open,closed',
+            'category' => 'required',
         ]);
-
-        $job=new Job();
-        $job->company_id=$request->company_id;
-        $job->title=$request->title;
-        $job->description=$request->description;
-        $job->type=$request->type;
-        $job->location=$request->location;
-        $job->salary=$request->salary;
-        $job->duration=$request->duration;
-        $job->status=$request->status;
-        $job->category=$request->category;
+    
+        // Create new job post
+        $job = new Job();
+        $job->company_id = $company->id; // Use the authenticated company's ID
+        $job->title = $request->title;
+        $job->description = $request->description;
+        $job->type = $request->type;
+        $job->location = $request->location;
+        $job->salary = $request->salary;
+        $job->duration = $request->duration;
+        $job->status = $request->status;
+        $job->category = $request->category;
         $job->save();
+    
+        // Decrement max_post count only for free companies
+        if ($company->subscription_status === 'free' && $company->max_post !== null) {
+            $company->max_post -= 1;
+            $company->save();
+        }
+    
         return redirect()->back()
-        ->with('success', 'job added successfully.');
+            ->with('success', 'Job added successfully.');
     }
+    
+
+
 
     public function editPost(int $id){
         $job=Job::where('id','=',$id)->with('company')->first();
@@ -321,6 +371,93 @@ class CompanyControlller extends Controller
         $user=User::where('id','=',$id)->first();
         return view('companies.userprofile',compact('user','profileImg'));    
     }
+
+   
+    public function subscribe(Request $request)
+    {
+        // Validate payment information
+        $request->validate([
+            'card_number' => 'required|digits:16',
+            'card_holder_name' => 'required|string|max:255',
+            'expiry_date' => 'required|date_format:Y-m',
+            'cvv' => 'required|digits:3',
+            'billing_address' => 'required|string',
+        ]);
+
+        // Get the authenticated company
+        $company = auth()->guard('company')->user();
+
+        // Update subscription details
+        $company->subscription_status = 'premium';
+        $company->max_post = null; // Infinite posts
+        $company->save();
+
+        return redirect()->back()->with('success', 'Your subscription has been upgraded to Premium.');
+    }
+
+    public function job(Request $request)
+      {
+        $company = Auth::guard('company')->user();
+        $profileImg = $company->img ?? null;
+          // Get query parameters from the request
+          $search = $request->input('search');
+          $category = $request->input('category');
+          $type = $request->input('type');
+          $location = $request->input('location');
+          $minSalary = $request->input('min_salary');
+          $maxSalary = $request->input('max_salary');
+      
+          // Start with the base query
+          $jobs = Job::with('company') // Eager load the related company data
+              ->where('status', 'open')->orderBy('id', 'desc'); // Only fetch open jobs
+      
+          // Apply filters dynamically
+          if ($search) {
+              $jobs->where(function ($query) use ($search) {
+                  $query->where('title', 'like', '%' . $search . '%')
+                        ->orWhere('description', 'like', '%' . $search . '%');
+              });
+          }
+      
+          if ($category) {
+              $jobs->where('category', $category);
+          }
+      
+          if ($type) {
+              $jobs->where('type', $type);
+          }
+      
+          if ($location) {
+              $jobs->where('location', 'like', '%' . $location . '%');
+          }
+      
+          if ($minSalary) {
+              $jobs->where('salary', '>=', $minSalary);
+          }
+      
+          if ($maxSalary) {
+              $jobs->where('salary', '<=', $maxSalary);
+          }
+      
+          // Paginate the filtered results
+          $jobs = $jobs->paginate(6);
+      
+          // Check if it's an AJAX request
+          if ($request->ajax()) {
+              return view('partials.job-list', compact('jobs'))->render();
+          }
+      
+          // For normal page load, return the full view
+          return view('companies.job', compact('jobs' , 'profileImg'));
+      }
+
+      public function jobProfile(int $id){
+        $job=Job::where('id','=',$id)->with('company')->first();
+        $company = Auth::guard('company')->user();
+        $profileImg = $company->img ?? null;
+        return view('companies.jobProfile',compact('job','profileImg'));
+      }
+
         
     
     

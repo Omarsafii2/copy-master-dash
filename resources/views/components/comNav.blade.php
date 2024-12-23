@@ -89,7 +89,7 @@
                         <a class="nav-link text-light active" aria-current="page" href="/company/home">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-light" href="/jobs/job">Jobs</a>
+                        <a class="nav-link text-light" href="/company/job">Jobs</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-light" href="/company/about">About</a>
@@ -98,16 +98,20 @@
                         <a class="nav-link text-light" href="/company/contact">Contact</a>
                     </li>
 
-                    <li>
-                        <a href="/company/logout">logout</a>
-                    </li>
+                    
                 </ul>
 
                 <div class="auth-links d-flex align-items-center mt-2">
 
+                    
+
                     <a href="/company/profile" class="">
                         <img src="{{asset($profileImg) ?? asset('default-profile.png') }}" alt="Profile Image" class="profile-img">
                     </a>
+
+                    <li>
+                        <a href="/company/logout" class="text-white fs-3 me-3"><i class="bi bi-box-arrow-right"></i></a>
+                    </li>
 
 
 
