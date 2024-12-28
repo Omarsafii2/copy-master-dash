@@ -77,7 +77,8 @@
 <body>
     <nav class="navbar navbar-expand-lg bg-dark sticky-navbar p-3 container-fluid">
         <div class="container-fluid">
-            <a class="navbar-brand fw-bold text-primary" href="#">MyWebsite</a>
+            <a class="navbar-brand fw-bold text-primary" href="/users/home"><img src="{{ asset('images/logo2.webp') }}" width="50" height="50" alt="">
+            </a>
             <button class="navbar-toggler bg-light text-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>

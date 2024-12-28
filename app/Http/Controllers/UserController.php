@@ -139,7 +139,7 @@ public function home(Request $request)
         ->limit(6)
         ->get();
 
-    return view('users.home', compact('companies', 'jobs', 'totalJobs', 'profileImg'));
+    return view('users.home', compact('companies','user', 'jobs', 'totalJobs', 'profileImg'));
 }
 
 
@@ -253,39 +253,53 @@ public function deleteProfile(){
     return redirect('/users/home');
 }
 
-public function updateProfile(Request $request){
+public function updateProfile(Request $request)
+{
     $user = Auth::guard('user')->user();
+
     $validate = $request->validate([
         'name' => 'required|string|max:255',
         'last_name' => 'required|string|max:255',
-        'email' => 'required|email|unique:users,email,'.$user->id,
-        'password' => 'required|min:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/',
-        'cpassword' => 'required|same:password',
-        // 'gender' => 'required|in:male,female',
-        // 'education' => 'required|string|max:255',
-        'phone_number'=>'required',
-        'bio'=>'required',
+        'email' => 'required|email|unique:users,email,' . $user->id,
+        'password' => 'nullable|min:8|regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/',
+        'cpassword' => 'nullable|same:password',
+        'phone_number' => 'required',
+        'bio' => 'required',
         'category' => 'required|string|max:255',
+        'cv'=>'nullable',
+        'country'=>'nullable',
+        'experince'=>'nullable',
     ]);
+
     $filename = $user->img;
-    if($request->hasFile('img')){
+
+    // Handle profile image upload
+    if ($request->hasFile('img')) {
         $file = $request->file('img');
         $filename = 'uploads/user/' . time() . '.' . $file->getClientOriginalExtension();
         $file->move(public_path('uploads/user'), $filename);
-       
     }
+
+    // Update user information
     $user->name = $request->name;
     $user->last_name = $request->last_name;
     $user->email = $request->email;
-    // $user->password = Hash::make($request->password);
-    // $user->gender = $request->gender;
     $user->img = $filename;
-    // $user->education = $request->education;
     $user->phone_number = $request->phone_number;
     $user->bio = $request->bio;
     $user->category = $request->category;
+    $user->cv = $request->cv;
+    $user->country = $request->country;
+    $user->experince = $request->experince;
+
+    // Update password only if provided
+    if ($request->filled('password')) {
+        $user->password = bcrypt($request->password);
+    }
+
     $user->save();
-    return redirect('/users/profile');
+
+    return redirect('/users/profile')->with('success', 'Profile updated successfully!');
 }
 public function company(Request $request)
 {

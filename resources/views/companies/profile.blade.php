@@ -7,6 +7,7 @@
         <x-slot:title>
             Profile
         </x-slot:title>
+        
 
             
 @if (session('success'))

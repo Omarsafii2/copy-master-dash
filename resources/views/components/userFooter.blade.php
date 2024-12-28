@@ -13,10 +13,10 @@
             <div class="col-md-4 mb-3">
                 <h5 class="fw-bold text-primary">Quick Links</h5>
                 <ul class="list-unstyled">
-                    <li><a href="/company/home" class="text-light text-decoration-none small">Home</a></li>
-                    <li><a href="/company/about" class="text-light text-decoration-none small">About Us</a></li>
-                    <li><a href="/company/job" class="text-light text-decoration-none small">Jobs</a></li>
-                    <li><a href="/company/contact" class="text-light text-decoration-none small">Contact Us</a></li>
+                    <li><a href="/users/home" class="text-light text-decoration-none small">Home</a></li>
+                    <li><a href="/users/about" class="text-light text-decoration-none small">About Us</a></li>
+                    <li><a href="/users/job" class="text-light text-decoration-none small">Jobs</a></li>
+                    <li><a href="/users/contact" class="text-light text-decoration-none small">Contact Us</a></li>
                     
                 </ul>
 

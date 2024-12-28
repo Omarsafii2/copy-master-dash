@@ -139,7 +139,7 @@ Route::controller(AdminController::class)->group(function () {
         Route::get('/users/jobProfile/{id}','jobProfile')->name('users.jobProfile');
         Route::get('/users/profile', 'profile')->name('users.profile');
         Route::delete('/users/delete', 'deleteProfile')->name('users.delete');
-        Route::patch('/users/edit','updateProfile')->name('users.edit');
+        Route::put('/users/edit','updateProfile')->name('users.edit');
         Route::get('/users/company','company')->name('users.company');
         Route::get('/users/companyProfile/{id}','companyProfile')->name('users.companyProfile');
         Route::post('/users/reviews','storeReview')->name('users.reviews');

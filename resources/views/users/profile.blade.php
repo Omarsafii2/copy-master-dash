@@ -1,125 +1,144 @@
-<header class="banner">
+<style>
+    .banner {
+                    background-image: url('{{asset('images/bradcam.png')}}');
+                    background-size: cover;
+                    background-position: center;
+                    padding-top: 80px;
+                }
+
+        .banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+        
+            z-index: 1;
+        }
+
+        .banner-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .breadcrumb {
+            background: transparent;
+            padding: 0;
+            margin: 0;
+        }
+
+        .breadcrumb-item {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+        }
+
+        .breadcrumb-item + .breadcrumb-item::before {
+            content: "›";
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .breadcrumb-item.active {
+            color: #fff;
+        }
+
+        .breadcrumb a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .breadcrumb a:hover {
+            color: #fff;
+        }
+
+        .banner-subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+
+    <header class="banner">
+        <x-userNav :profileImg="$profileImg">
+            <x-slot:title>
+                User Profile
+            </x-slot:title>
+
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/css/intlTelInput.min.css">
 
 
-    <x-userNav :profileImg="$profileImg">
-        <x-slot:title>
-            Edit Post
-        </x-slot:title>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/css/intlTelInput.min.css">
-
-
-            
-@if (session('success'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert" id="success-message" style="transition: opacity 0.5s;">
-        {{ session('success') }}
-    </div>
-    <script>
-        setTimeout(() => {
-            const successMessage = document.getElementById('success-message');
-            if (successMessage) {
-                successMessage.style.opacity = '0'; // Start fading out
-                setTimeout(() => successMessage.remove(), 500); // Remove after fade-out
-            }
-        }, 3000); // 3-second delay before fade-out
-    </script>
-@elseif (session('error'))
-    <div class="alert alert-danger alert-dismissible fade show" role="alert" id="error-message" style="transition: opacity 0.5s;">
-        {{ session('error') }}
-    </div>
-    <script>
-        setTimeout(() => {
-            const errorMessage = document.getElementById('error-message');
-            if (errorMessage) {
-                errorMessage.style.opacity = '0'; // Start fading out
-                setTimeout(() => errorMessage.remove(), 500); // Remove after fade-out
-            }
-        }, 3000); // 3-second delay before fade-out
-
-    </script>
- @elseif (session('message'))
-    <div class="alert alert-info alert-dismissible fade show" role="alert" id="info-message" style="transition: opacity 0.5s;">
-        {{ session('message') }}
-    </div>
-    <script>
-        setTimeout(() => {
-            const infoMessage = document.getElementById('info-message');
-            if (infoMessage) {
-                infoMessage.style.opacity = '0'; // Start fading out
-                setTimeout(() => infoMessage.remove(), 500); // Remove after fade-out
-            }
-        }, 3000); // 3-second delay before fade-out
-
-    </script>
-@endif
-
-        <style>
-            .banner {
-                background-image: url('{{ asset("images/bradcam.png") }}');
-                background-size: cover;
-                background-position: center;
-                padding-top: 80px;
-                min-height: 300px;
-                /* Ensure the banner height is sufficient */
-            }
-
-            .card-img-size {
-                width: 100%;
-                height: 200px;
-                object-fit: cover;
-                object-position: center;
-                border-top-left-radius: 10px;
-                border-top-right-radius: 10px;
-            }
-
-            .contact-form {
-                background: #ffffff;
-                padding: 30px;
-                border-radius: 8px;
-                box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-                margin-top: 50px;
-            }
-
-            .contact-form h2 {
-                color: #0d6efd;
-            }
-
-            /* Ensure the form is centered in the viewport */
-            .contact-section {
-                min-height: 100vh;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-            }
-
-            /* Responsive image */
-            .card-img-size {
-                max-width: 250px;
-                margin: 0 auto;
-            }
-
-            /* Section title */
-            .section-title {
-                font-size: 24px;
-                color: #0d6efd;
-                margin-bottom: 30px;
-            }
-        </style>
-
-        <main class="container">
-            <div class="row">
-                <div class="col-md-6 d-flex flex-column justify-content-center">
-                    <p class="text-white align-self-start">Welcome</p>
-                    <h1 class="text-white">{{$user->name}}</h1>
+            @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert" id="success-message" style="transition: opacity 0.5s;">
+                    {{ session('success') }}
                 </div>
+                <script>
+                    setTimeout(() => {
+                        const successMessage = document.getElementById('success-message');
+                        if (successMessage) {
+                            successMessage.style.opacity = '0';
+                            setTimeout(() => successMessage.remove(), 500);
+                        }
+                    }, 3000);
+                </script>
+            @elseif (session('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert" id="error-message" style="transition: opacity 0.5s;">
+                    {{ session('error') }}
+                </div>
+                <script>
+                    setTimeout(() => {
+                        const errorMessage = document.getElementById('error-message');
+                        if (errorMessage) {
+                            errorMessage.style.opacity = '0';
+                            setTimeout(() => errorMessage.remove(), 500);
+                        }
+                    }, 3000);
+                </script>
+            @elseif (session('message'))
+                <div class="alert alert-info alert-dismissible fade show" role="alert" id="info-message" style="transition: opacity 0.5s;">
+                    {{ session('message') }}
+                </div>
+                <script>
+                    setTimeout(() => {
+                        const infoMessage = document.getElementById('info-message');
+                        if (infoMessage) {
+                            infoMessage.style.opacity = '0';
+                            setTimeout(() => infoMessage.remove(), 500);
+                        }
+                    }, 3000);
+                </script>
+            @endif
 
-            </div>
-        </main>
-    </x-userNav>
-</header>
+            <main class="container">
+                <div class="row banner-content">
+                    <div class="col-lg-8">
+                        <!-- Breadcrumb -->
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/users/home"><i class="bi bi-house-door"></i> Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Profile</li>
+                            </ol>
+                        </nav>
+
+                        <!-- Title Section -->
+                        <div class="mt-3 mb-3">
+                            <p class="banner-subtitle mb-2">Hello, {{ auth()->user()->name }}</p>
+                            <h1 class="page-title text-white">Profile</h1>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </x-userNav>
+    </header>
 
 
 
-<div class="d-flex justify-content-between mt-3 container card-flex shadow">
+<div class="d-flex justify-content-end mt-3 container card-flex shadow">
     <div class="mt-2 me-2">
         <button type="button" class="btn btn-primary p-2 d-flex  align-items-center" data-bs-toggle="modal" data-bs-target="#formModal">
             <i class="bi bi-building me-1"></i> Edit Profile
@@ -172,19 +191,19 @@
             <div class="modal-body">
     <form action="/users/edit" method="post" enctype="multipart/form-data">
         @csrf
-        @method('patch')
+        @method('put')
         <input type="hidden" name="id" value="{{ Auth::user()->id }}">
 
         <!-- Row for First and Last Name -->
-        <div class="row mb-4">
-            <div class="col-md-6">
+        <div class="row">
+            <div class="col-md-6 mb-3">
                 <label class="form-label" for="name">First Name</label>
                 <input type="text" name="name" id="name" autofocus class="form-control form-control-md shadow-sm" value="{{ $user->name }}" required>
                 @error('name')
                 <span class="text-danger small">{{ $message }}</span>
                 @enderror
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 mb-3">
                 <label class="form-label" for="lastName">Last Name</label>
                 <input type="text" name="last_name" id="lastName" class="form-control form-control-md shadow-sm" value="{{ $user->last_name }}" required>
                 @error('last_name')
@@ -194,39 +213,42 @@
         </div>
 
         <!-- Row for Email -->
-        <div class="mb-4">
+        <div class="row ">
+            <div class="col-md-12 mb-3">
             <label class="form-label" for="emailAddress">Email Address</label>
             <input type="email" id="emailAddress" name="email" class="form-control form-control-md shadow-sm" value="{{ $user->email }}" required>
             @error('email')
             <span class="text-danger small">{{ $message }}</span>
             @enderror
         </div>
+        </div>
+       
 
         <!-- Row for Password and Confirm Password -->
-        <div class="row mb-4">
-            <div class="col-md-6">
+        <div class="row ">
+            <div class="col-md-6 mb-3">
                 <label for="password" class="form-label">Password</label>
-                <input type="password" name="password" id="password" class="form-control form-control-md shadow-sm" value="{{$user->password}}">
+                <input type="password" name="password" id="password" class="form-control form-control-md shadow-sm" >
                 @error('password')
                 <span class="text-danger small">{{ $message }}</span>
                 @enderror
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 mb-3">
                 <label for="password_confirmation" class="form-label">Confirm Password</label>
-                <input type="password" name="cpassword" id="password_confirmation" class="form-control form-control-md shadow-sm" value="{{$user->password}}">
+                <input type="password" name="cpassword" id="password_confirmation" class="form-control form-control-md shadow-sm">
             </div>
         </div>
 
         <!-- Row for Profile Image and Phone Number -->
-        <div class="row mb-4">
-            <div class="col-md-6">
+        <div class="row ">
+            <div class="col-md-6 mb-3">
                 <label for="img" class="form-label">Upload Profile Image</label>
                 <input id="img" type="file" name="img" class="form-control shadow-sm">
                 @error('img')
                 <span class="text-danger small">{{ $message }}</span>
                 @enderror
             </div>
-            <div class="col-md-6">
+            <div class="col-md-6 mb-3">
                 <label for="phone" class="form-label">Phone Number</label>
                 <input id="phone" type="tel" name="phone_number" value="{{ $user->phone_number }}" class="form-control shadow-sm">
                 @error('phone_number')
@@ -234,8 +256,8 @@
                 @enderror
             </div>
         </div>
-        <div class="row mb-4">
-            <div class="col-md-6">
+        <div class="row ">
+            <div class="col-md-6 mb-3 ">
             <label for="category" class="form-label">Specialaization</label>
                                 <select name="category" id="category" class="form-control">
                                     <option value="" disabled selected >Specialization</option>
@@ -268,11 +290,27 @@
                                 </select>
                 
             </div>
+            <div class="col-md-6 mb-3">
+                <label for="cv" class="form-label">Your CV <small>(Link)</small></label>
+                <input type="text" name="cv" value="{{ $user->cv }}" class="form-control shadow-sm">
+
+            </div>
 
         </div>
 
+        <div class="row">
+            <div class="col-md-6 mb-3">
+                <label for="country" class="form-label">City</label>
+                <input type="text" name="country" value="{{ $user->country }}" class="form-control shadow-sm">
+            </div>
+            <div class="col-md-6 mb-3">
+                <label for="experince" class="form-label">Experince</label>
+                <input type="text" name="experince" value="{{ $user->experince }}" class="form-control shadow-sm">
+            </div>
+        </div>
+
         <!-- Row for Bio -->
-        <div class="mb-4">
+        <div class="mb-3">
             <label class="form-label" for="bio">Bio</label>
             <textarea name="bio" id="bio" rows="3" class="form-control shadow-sm" required>{{ $user->bio }}</textarea>
         </div>
@@ -298,7 +336,11 @@
             <img src="{{asset($user->img)}}" style="width:250px ; height:250px; " class="rounded-4" alt="">
             <h5 class="my-3">{{$user->name}}</h5>
             <p class="text-muted mb-1">{{$user->title}}</p>
+            @if ($user->country != null)
+            
+            
             <p class="text-muted mb-2">loaction: {{$user->country}}</p>
+            @endif
         </div>
     </div>
 
@@ -327,7 +369,11 @@
                   <a href="{{$user->email}}" class="text-decoration-none">{{$user->email}}</a>
               </div>
             </div>
+            @if ($user->phone_number != null)
             <hr>
+            
+            
+            
             <div class="row">
               <div class="col-sm-3">
                 <p class="mb-0">Phone</p>
@@ -336,7 +382,12 @@
                 <p class="text-muted mb-0">{{$user->phone_number}}</p>
               </div>
             </div>
+            @endif
+            @if ($user->education != null)
             <hr>
+           
+            
+            
             <div class="row">
               <div class="col-sm-3">
                 <p class="mb-0">Education</p>
@@ -347,8 +398,12 @@
             </div>
             
          
-          
+           @endif
+           @if ($user->experince != null)
            <hr>
+          
+           
+           
            <div class="row">
               <div class="col-sm-3">
                 <p class="mb-0">Experience</p>
@@ -357,7 +412,12 @@
                 <p class="text-muted mb-0">{{$user->experince}}</p>
               </div>
             </div>
-            <hr>
+              @endif
+                @if ($user->cv != null)
+            <hr>  
+              
+            
+            
             <div class="row">
               <div class="col-sm-3">
                 <p class="mb-0">CV</p>
@@ -366,6 +426,7 @@
                   <a href="{{$user->cv}}" target="_blank" class="text-primary mb-0 text-decoration-none">{{$user->name." cv"}}</a>
               </div>
             </div>
+            @endif
             
        
           </div>
@@ -394,7 +455,7 @@
     
  </div> 
 
- <div class="container mt-5">
+ <div class="container mt-5 mb-5">
     <h3 class="text-secondary mb-4">Your Applications</h3>
 
     @if($user->applications->isEmpty())
@@ -418,6 +479,7 @@
                                 <p class="mb-1"><strong>Category:</strong> {{ $application->jobs->category }}</p>
                                 <p class="mb-1"><strong>Location:</strong> {{ $application->jobs->location }}</p>
                                 <p class="mb-1"><strong>Description:</strong> {{ $application->jobs->description }}</p>
+                                
                             </div>
 
                             <!-- Buttons -->
@@ -507,7 +569,6 @@
  
  
 
-    <x-comFooter></x-comFooter>
-
+<x-userFooter></x-userFooter>
 
    

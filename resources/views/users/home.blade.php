@@ -91,14 +91,22 @@
             z-index: 2; /* Ensure it's above the background */
             object-fit: contain;
         }
+        .page-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+
     </style>
 
     <div class="container d-flex align-items-center justify-content-between">
         <!-- Left Section -->
         <div class="content-box">
-            <h1>Welcome to MyWebsite</h1>
-            <p>This is a description of the website.</p>
-            <a href="#" class="btn btn-light">Learn More</a>
+            <h1 class="page-title text-white">Your Next Opportunity Starts Here!</h1>
+            <p>Apply in One Click!</p>
+            <a href="/users/job" class="btn btn-light">Explore Jobs</a>
         </div>
 
         <!-- Right Section -->
@@ -246,9 +254,9 @@
     </div>
 </section>
 
-<section class="py-5 ">
+<section class="mt-5 ">
     <div class="container mb-5">
-        <h2 class="fw-bold text-primary text-center">Top Companies</h2>
+        <h2 class="text-center text-primary mb-5 mt-5 fw-bold" style="font-size: 3rem">Popular Companies</h2>
     </div>
 
     <div id="companyCarousel" class="carousel slide" data-bs-ride="carousel">
@@ -267,6 +275,7 @@
                     <div class="row">
                         @foreach ($chunk as $company)
                         <div class="col-md-4 mb-4">
+                            <a href="/users/companyProfile/{{ $company->id }}" class="text-decoration-none">
                             <div class="card bg-light shadow-sm">
                                 <img src="{{ asset($company->img) }}" class="card-img-top" alt="Company Logo" style="width: 100px; height: 100px; margin: auto; padding: 10px;">
                                 <div class="card-body text-center">
@@ -275,6 +284,7 @@
                                     <small class="fw-bold">{{ $company->jobs_count }} <span class="text-muted ms-2">Jobs Available</span></small>
                                 </div>
                             </div>
+                            </a>
                         </div>
                         @endforeach
                     </div>
@@ -297,9 +307,9 @@
 
 
 
-<section class="py-5  mb-5">
+<section class=" mb-5 mt-5">
     <div class="container">
-        <h2 class="fw-bold text-primary text-center mb-5">What People Are Saying</h2>
+        <h2 class="text-center text-primary mb-5 mt-5 fw-bold" style="font-size: 3rem">What People Are Saying</h2>
         <div class="row">
             <!-- Testimonial 1 -->
             <div class="col-md-4">
@@ -404,6 +414,4 @@
 
 </x-userNav>
 
-<x-footer>
-
-</x-footer>
+<x-userFooter></x-userFooter>

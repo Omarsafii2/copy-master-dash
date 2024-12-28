@@ -1,117 +1,136 @@
-<header class="banner mb-4">
-    <x-userNav :profileImg="$profileImg">
-        <x-slot:title>
-            Job
-        </x-slot:title>
-            
-@if (session('success'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert" id="success-message" style="transition: opacity 0.5s;">
-        {{ session('success') }}
-    </div>
-    <script>
-        setTimeout(() => {
-            const successMessage = document.getElementById('success-message');
-            if (successMessage) {
-                successMessage.style.opacity = '0'; // Start fading out
-                setTimeout(() => successMessage.remove(), 500); // Remove after fade-out
-            }
-        }, 3000); // 3-second delay before fade-out
-    </script>
-@elseif (session('error'))
-    <div class="alert alert-danger alert-dismissible fade show" role="alert" id="error-message" style="transition: opacity 0.5s;">
-        {{ session('error') }}
-    </div>
-    <script>
-        setTimeout(() => {
-            const errorMessage = document.getElementById('error-message');
-            if (errorMessage) {
-                errorMessage.style.opacity = '0'; // Start fading out
-                setTimeout(() => errorMessage.remove(), 500); // Remove after fade-out
-            }
-        }, 3000); // 3-second delay before fade-out
+<style>
+    .banner {
+                    background-image: url('{{asset('images/bradcam.png')}}');
+                    background-size: cover;
+                    background-position: center;
+                    padding-top: 80px;
+                }
 
-    </script>
- @elseif (session('message'))
-    <div class="alert alert-info alert-dismissible fade show" role="alert" id="info-message" style="transition: opacity 0.5s;">
-        {{ session('message') }}
-    </div>
-    <script>
-        setTimeout(() => {
-            const infoMessage = document.getElementById('info-message');
-            if (infoMessage) {
-                infoMessage.style.opacity = '0'; // Start fading out
-                setTimeout(() => infoMessage.remove(), 500); // Remove after fade-out
-            }
-        }, 3000); // 3-second delay before fade-out
+        .banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+        }
 
-    </script>
-@endif
+        .banner-content {
+            position: relative;
+            z-index: 2;
+        }
 
-        <style>
-            .banner {
-                background-image: url('{{asset('/images/bradcam.png')}}');
-                background-size: cover;
-                background-position: center;
-                padding-top: 80px;
-                /* Adjust this based on navbar height */
-            }
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
 
-            .card-img-size {
-                width: 100%;
-                /* تجعل الصورة تمتد على عرض الكارد */
-                height: 200px;
-                /* يمكنك تغيير هذا الارتفاع حسب الحاجة */
-                object-fit: cover;
-                /* تجعل الصورة تملأ الحاوية دون تشويه */
-                object-position: center;
-                /* تضمن أن الصورة تتركز داخل الحاوية */
-                border-top-left-radius: 5px;
-                border-top-right-radius: 5px;
-            }
+        .breadcrumb {
+            background: transparent;
+            padding: 0;
+            margin: 0;
+        }
 
-            .section-heading {
-                color: #0d6efd;
-                /* Bootstrap primary color */
-                font-weight: bold;
-            }
+        .breadcrumb-item {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+        }
 
-            .about-section {
-                padding: 60px 20px;
-            }
+        .breadcrumb-item + .breadcrumb-item::before {
+            content: "›";
+            color: rgba(255, 255, 255, 0.6);
+        }
 
-            .values-box {
-                background-color: #0d6efd;
-                /* Primary color background */
-                color: #fff;
-                border-radius: 8px;
-                padding: 30px;
-                margin-top: 30px;
-                transition: transform 0.3s ease-in-out;
-            }
+        .breadcrumb-item.active {
+            color: #fff;
+        }
 
-            .values-box:hover {
-                transform: translateY(-10px);
-                /* Lift effect on hover */
-            }
+        .breadcrumb a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
 
-            .team-section img {
-                border-radius: 50%;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            }
-        </style>
+        .breadcrumb a:hover {
+            color: #fff;
+        }
 
-        <main class="container ">
-            <div class="row ">
-                <div class="col-md-6 d-flex flex-column justify-content-center ">
-                    <p class="text-white align-self-start">Browse</p>
+        .banner-subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+    </style>
 
-                    <h1 class="text-white">Jobs</h1>
+    <header class="banner">
+        <x-userNav :profileImg="$profileImg">
+            <x-slot:title>
+                Jobs
+            </x-slot:title>
 
+            @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert" id="success-message" style="transition: opacity 0.5s;">
+                    {{ session('success') }}
                 </div>
+                <script>
+                    setTimeout(() => {
+                        const successMessage = document.getElementById('success-message');
+                        if (successMessage) {
+                            successMessage.style.opacity = '0';
+                            setTimeout(() => successMessage.remove(), 500);
+                        }
+                    }, 3000);
+                </script>
+            @elseif (session('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert" id="error-message" style="transition: opacity 0.5s;">
+                    {{ session('error') }}
+                </div>
+                <script>
+                    setTimeout(() => {
+                        const errorMessage = document.getElementById('error-message');
+                        if (errorMessage) {
+                            errorMessage.style.opacity = '0';
+                            setTimeout(() => errorMessage.remove(), 500);
+                        }
+                    }, 3000);
+                </script>
+            @elseif (session('message'))
+                <div class="alert alert-info alert-dismissible fade show" role="alert" id="info-message" style="transition: opacity 0.5s;">
+                    {{ session('message') }}
+                </div>
+                <script>
+                    setTimeout(() => {
+                        const infoMessage = document.getElementById('info-message');
+                        if (infoMessage) {
+                            infoMessage.style.opacity = '0';
+                            setTimeout(() => infoMessage.remove(), 500);
+                        }
+                    }, 3000);
+                </script>
+            @endif
 
-            </div>
-</header>
-</x-userNav>
+            <main class="container">
+                <div class="row banner-content">
+                    <div class="col-lg-8">
+                        <!-- Breadcrumb -->
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/users/home"><i class="bi bi-house-door"></i> Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Jobs</li>
+                            </ol>
+                        </nav>
+
+                        <!-- Title Section -->
+                        <div class="mt-3 mb-3">
+                            <p class="banner-subtitle mb-2">Explore Job Opportunities</p>
+                            <h1 class="page-title text-white">Jobs</h1>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </x-userNav>
+    </header>
 
 
 <section class=" ">
@@ -122,7 +141,7 @@
 
 
         <!-- Main Content -->
-        <div class="row">
+        <div class="row mt-5">
             <!-- Left Sidebar -->
             <div class="col-md-3">
                 <div class="bg-primary p-4 shadow-sm rounded">
@@ -234,4 +253,4 @@
 
 
 
-<x-comFooter></x-comFooter>
+<x-userFooter></x-userFooter>

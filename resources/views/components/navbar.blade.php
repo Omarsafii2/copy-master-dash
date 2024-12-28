@@ -19,10 +19,7 @@
             
         }
 
-        .form-control {
-            max-width: 300px;
-        }
-
+    
         .auth-links a {
             margin-left: 15px;
         }
