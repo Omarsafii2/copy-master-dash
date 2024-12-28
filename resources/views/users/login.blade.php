@@ -115,7 +115,7 @@
         <!-- Registration Form Container -->
         <div class="form-container ">
             <h2>Login Job Scope</h2>
-            <form action="/company/login" method="POST" enctype="multipart/form-data">
+            <form action="/user/login" method="POST" enctype="multipart/form-data">
                 @csrf
                 <!-- Email Address -->
                 <div class="mb-3">
@@ -140,7 +140,7 @@
 
 
                 <!-- Submit Button -->
-                <button type="submit" class="btn btn-primary">Register</button>
+                <button type="submit" class="btn btn-primary">Login</button>
             </form>
         </div>
     </div>

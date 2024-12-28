@@ -5,6 +5,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\User\HomeController;
+use App\Http\Controllers\UserController;
 use App\Models\Company;
 
 /*
@@ -114,12 +115,38 @@ Route::controller(AdminController::class)->group(function () {
            Route::post('/company/subscribe','subscribe')->name('company.subscribe');
            Route::get('/company/job','job')->name('company.job');
            Route::get('/company/jobProfile/{id}','jobProfile')->name('company.jobProfile');
-           
+
 
        });
 
        
        
+ });
+
+ Route::controller(UserController::class)->group(function () {
+    Route::get('/user/register', 'getreg')->name('user.getreg');
+    Route::post('/user/register', 'register')->name('user.register');
+    Route::get('/user/login', 'getlogin')->name('user.getlogin');
+    Route::post('/user/login', 'login')->name('user.login');
+
+    Route::middleware('auth:user')->group(function () {
+        Route::get('users/home','home')->name('users.home');
+        Route::get('/user/logout', 'logout')->name('user.logout');
+        Route::get('users/about','about')->name('users.about');
+        Route::get('users/contact','contact')->name('users.contact');
+        Route::post('/user/contact', 'postContact')->name('user.contactpost');
+        Route::get('/users/job','job')->name('users.job');
+        Route::get('/users/jobProfile/{id}','jobProfile')->name('users.jobProfile');
+        Route::get('/users/profile', 'profile')->name('users.profile');
+        Route::delete('/users/delete', 'deleteProfile')->name('users.delete');
+        Route::patch('/users/edit','updateProfile')->name('users.edit');
+        Route::get('/users/company','company')->name('users.company');
+        Route::get('/users/companyProfile/{id}','companyProfile')->name('users.companyProfile');
+        Route::post('/users/reviews','storeReview')->name('users.reviews');
+        Route::get('/users/applay/{id}','apply')->name('users.applay');
+        Route::delete('/users/application/{id}','deleteApplication')->name('users.deleteApplication');
+    });
+     
  });
 
 

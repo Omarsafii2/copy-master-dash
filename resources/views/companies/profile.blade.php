@@ -536,6 +536,9 @@
     </div>
 </div>
 </div>
+
+
+
 <div class="container mt-5">
 
     <!-- Profile Info Section -->
@@ -659,7 +662,7 @@
                 <div class="card-body ">
                     <div class="row text-center 1">
                         @forelse($jobs as $job)
-                        <div class="col-lg-12">
+                        <div class="col-lg-4">
                             <div class="job-card mb-4 position-relative">
                                 <!-- Three-dot button -->
                                 <button class="btn btn-link more-options-btn position-absolute top-0 end-0 mt-2 me-2" data-bs-toggle="dropdown" aria-expanded="false">
@@ -819,7 +822,7 @@
 
                     // Construct the job card HTML
                     let jobCard = `
-                        <div class="col-lg-12">
+                        <div class="col-lg-4">
                             <div class="job-card mb-4 position-relative">
                                 <button class="btn btn-link more-options-btn position-absolute top-0 end-0 mt-2 me-2" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="bi bi-three-dots-vertical"></i>
