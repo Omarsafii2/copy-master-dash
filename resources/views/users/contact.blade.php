@@ -87,7 +87,7 @@
     <header class="banner">
         <x-userNav :profileImg="$profileImg">
             <x-slot:title>
-                Jobs
+                Contact Us
             </x-slot:title>
 
             @if (session('success'))
@@ -152,14 +152,6 @@
             </main>
         </x-userNav>
     </header>
-
-<!-- Success Message Display -->
-@if (session('success'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        {{ session('success') }}
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-@endif
 
 <!-- Contact Form Section -->
 <div class="contact-section mb-5">

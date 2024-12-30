@@ -68,7 +68,7 @@
     <header class="banner">
         <x-userNav :profileImg="$profileImg">
             <x-slot:title>
-                Jobs
+                Job Profile
             </x-slot:title>
 
             @if (session('success'))

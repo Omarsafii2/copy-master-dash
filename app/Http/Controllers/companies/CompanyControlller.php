@@ -136,39 +136,50 @@ class CompanyControlller extends Controller
     public function home(Request $request)
     {
         $companies = Company::withCount('jobs')->orderByDesc('jobs_count')->limit(6)->get();
-        $query = Job::with('company');
-
+        $query = Job::with('company')
+        ->where('status', 'open') // Only fetch open jobs
+        ->orderBy('id', 'desc');
         // Get the logged-in company's profile image
         $company = Auth::guard('company')->user();
         $profileImg = $company->img ?? null;
 
         $comJobs = Auth::guard('company')->user()->jobs;
 
-        // Filters
-        if ($request->filled('category')) {
-            $query->where('category', $request->category);
-        }
+      // Apply search
+      if ($request->filled('search')) {
+        $search = $request->input('search');
+        $query->where(function ($q) use ($search) {
+            $q->where('title', 'like', '%' . $search . '%')
+              ->orWhere('description', 'like', '%' . $search . '%');
+        });
+    }
 
-        if ($request->filled('type')) {
-            $query->where('type', $request->type);
-        }
+    // Apply filters
+    if ($request->filled('category')) {
+        $query->where('category', $request->input('category'));
+    }
 
-        if ($request->filled('location')) {
-            $query->where('location', $request->location);
-        }
+    if ($request->filled('type')) {
+        $query->where('type', $request->input('type'));
+    }
 
-        if ($request->filled('min_salary') && $request->filled('max_salary')) {
-            $query->whereBetween('salary', [$request->min_salary, $request->max_salary]);
-        }
+    if ($request->filled('location')) {
+        $query->where('location', 'like', '%' . $request->input('location') . '%');
+    }
 
-        $jobs = $query->orderBy('id', 'desc')->paginate(6);
+    if ($request->filled('min_salary') && $request->filled('max_salary')) {
+        $query->whereBetween('salary', [$request->input('min_salary'), $request->input('max_salary')]);
+    }
 
-        // Total Jobs per Category
-        $totalJobs = Job::select('category', DB::raw('COUNT(*) as total'))
-            ->groupBy('category')
-            ->orderBy('total', 'desc')
-            ->limit(6)
-            ->get();
+    // Paginate the results
+    $jobs = $query->paginate(6);
+
+    // Total jobs per category
+    $totalJobs = Job::select('category', DB::raw('COUNT(*) as total'))
+        ->groupBy('category')
+        ->orderBy('total', 'desc')
+        ->limit(6)
+        ->get();
 
         // Pass the necessary data to the view
         return view('companies.home', compact('companies', 'jobs', 'totalJobs', 'profileImg', 'comJobs'));
@@ -285,7 +296,6 @@ class CompanyControlller extends Controller
             'location' => 'required',
             'salary' => 'required|numeric',
             'duration' => 'required',
-            'status' => 'required|in:open,closed',
             'category' => 'required',
         ]);
     
@@ -298,7 +308,6 @@ class CompanyControlller extends Controller
         $job->location = $request->location;
         $job->salary = $request->salary;
         $job->duration = $request->duration;
-        $job->status = $request->status;
         $job->category = $request->category;
         $job->save();
     

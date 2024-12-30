@@ -106,13 +106,17 @@
         <div class="content-box">
             <h1 class="page-title text-white">Your Next Opportunity Starts Here!</h1>
             <p>Apply in One Click!</p>
-            <a href="/users/job" class="btn btn-light">Explore Jobs</a>
+            <a href="/users/job" class="btn btn-light"><i class="bi bi-search me-2"></i>Explore Jobs</a>
         </div>
 
         <!-- Right Section -->
         <img src="{{ asset('images/illustration.png') }}" alt="Hero Image" class="foreground-img">
     </div>
+    </x-userNav>
+
 </header>
+
+
 
 <section class="mt-5 " >
     <h2 class="text-center text-primary mb-5 mt-5 fw-bold" style="font-size: 3rem">Popular Category</h2>
@@ -147,7 +151,7 @@
         <!-- Main Content -->
         <div class="row">
             <!-- Left Sidebar -->
-            <div class="col-md-3">
+            <div class="col-md-3 mb-3">
                 <div class="bg-primary p-4 shadow-sm rounded">
 
                     <!-- Filters -->
@@ -312,7 +316,7 @@
         <h2 class="text-center text-primary mb-5 mt-5 fw-bold" style="font-size: 3rem">What People Are Saying</h2>
         <div class="row">
             <!-- Testimonial 1 -->
-            <div class="col-md-4">
+            <div class="col-md-4 mb-3">
                 <div class="card bg-light shadow-sm h-100">
                     <div class="card-body">
                         <p class="card-text text-muted fst-italic">
@@ -331,7 +335,7 @@
             </div>
 
             <!-- Testimonial 2 -->
-            <div class="col-md-4">
+            <div class="col-md-4 mb-3">
                 <div class="card bg-light shadow-sm h-100">
                     <div class="card-body">
                         <p class="card-text text-muted fst-italic">
@@ -350,7 +354,7 @@
             </div>
 
             <!-- Testimonial 3 -->
-            <div class="col-md-4">
+            <div class="col-md-4 mb-3">
                 <div class="card bg-light shadow-sm h-100">
                     <div class="card-body">
                         <p class="card-text text-muted fst-italic">
@@ -377,41 +381,8 @@
 
 </main>
 
-<script>
-   
-    $(document).ready(function() {
-
-
-        // Filter Form Submission
-        $('#filter-form').on('submit', function(e) {
-            e.preventDefault();
-            fetchJobs();
-        });
-
-        function fetchJobs() {
-            let query = {
-                search: $('#search-box').val(),
-                category: $('[name="category"]').val(),
-                type: $('[name="type"]').val(),
-                location: $('[name="location"]').val(),
-                min_salary: $('[name="min_salary"]').val(),
-                max_salary: $('[name="max_salary"]').val(),
-            };
-
-            $.ajax({
-                url: "{{ route('home') }}",
-                method: 'GET',
-                data: query,
-                success: function(response) {
-                    $('#jobs-container').html($(response).find('#jobs-container').html());
-                }
-            });
-        }
-    });
-</script>
 
 
 
-</x-userNav>
 
 <x-userFooter></x-userFooter>

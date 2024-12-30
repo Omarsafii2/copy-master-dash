@@ -108,7 +108,7 @@
 <header class="banner">
     <x-userNav :profileImg="$profileImg">
         <x-slot:title>
-            Jobs
+            About Us
         </x-slot:title>
 
         @if (session('success'))

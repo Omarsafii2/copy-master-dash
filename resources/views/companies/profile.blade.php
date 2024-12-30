@@ -1,67 +1,81 @@
-<header class="banner">
-    
+<style>
+    .banner {
+                    background-image: url('{{asset('images/bradcam.png')}}');
+                    background-size: cover;
+                    background-position: center;
+                    padding-top: 80px;
+                }
 
-
-
-    <x-comNav :profileImg="$profileImg">
-        <x-slot:title>
-            Profile
-        </x-slot:title>
+        .banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
         
+            z-index: 1;
+        }
 
-            
-@if (session('success'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert" id="success-message" style="transition: opacity 0.5s;">
-        {{ session('success') }}
-    </div>
-    <script>
-        setTimeout(() => {
-            const successMessage = document.getElementById('success-message');
-            if (successMessage) {
-                successMessage.style.opacity = '0'; // Start fading out
-                setTimeout(() => successMessage.remove(), 500); // Remove after fade-out
-            }
-        }, 3000); // 3-second delay before fade-out
-    </script>
-@elseif (session('error'))
-    <div class="alert alert-danger alert-dismissible fade show" role="alert" id="error-message" style="transition: opacity 0.5s;">
-        {{ session('error') }}
-    </div>
-    <script>
-        setTimeout(() => {
-            const errorMessage = document.getElementById('error-message');
-            if (errorMessage) {
-                errorMessage.style.opacity = '0'; // Start fading out
-                setTimeout(() => errorMessage.remove(), 500); // Remove after fade-out
-            }
-        }, 3000); // 3-second delay before fade-out
+        .banner-content {
+            position: relative;
+            z-index: 2;
+        }
 
-    </script>
- @elseif (session('message'))
-    <div class="alert alert-info alert-dismissible fade show" role="alert" id="info-message" style="transition: opacity 0.5s;">
-        {{ session('message') }}
-    </div>
-    <script>
-        setTimeout(() => {
-            const infoMessage = document.getElementById('info-message');
-            if (infoMessage) {
-                infoMessage.style.opacity = '0'; // Start fading out
-                setTimeout(() => infoMessage.remove(), 500); // Remove after fade-out
-            }
-        }, 3000); // 3-second delay before fade-out
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
 
-    </script>
-@endif
+        .breadcrumb {
+            background: transparent;
+            padding: 0;
+            margin: 0;
+        }
 
-        <style>
-            .banner {
-                background-image: url('{{ asset('images/bradcam.png') }}');
-                background-size: cover;
-                background-position: center;
-                padding-top: 80px;
-                min-height: 300px;
-                /* Ensure the banner height is sufficient */
+        .breadcrumb-item {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.95rem;
+        }
+
+        .breadcrumb-item + .breadcrumb-item::before {
+            content: "›";
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .breadcrumb-item.active {
+            color: #fff;
+        }
+
+        .breadcrumb a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .breadcrumb a:hover {
+            color: #fff;
+        }
+
+        .banner-subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+        }
+        
+        #load-more-btn {
+                background-color: #0d6efd;
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 5px;
+                cursor: pointer;
             }
+
+            #load-more-btn:hover {
+                background-color: #0046d3;
+            }
+
 
             .card-img-size {
                 width: 100%;
@@ -124,51 +138,97 @@
                 color: #666;
             }
 
-            /* Button styles */
-            #load-more-btn {
-                background-color: #0d6efd;
-                color: white;
-                border: none;
-                padding: 10px 20px;
-                border-radius: 5px;
-                cursor: pointer;
-            }
+    </style>
 
-            #load-more-btn:hover {
-                background-color: #0046d3;
-            }
-        </style>
+    <header class="banner">
+        <x-comNav :profileImg="$profileImg">
+            <x-slot:title>
+                User Profile
+            </x-slot:title>
 
-        <main class="container">
-            <div class="row">
-                <div class="col-md-6 d-flex flex-column justify-content-center">
-                    <p class="text-white align-self-start">Your Profile</p>
-                    <h1 class="text-white">{{ $company->name }}</h1>
-                    <button type="button" class="btn btn-light p-2  align-items-center w-50 " data-bs-toggle="modal" data-bs-target="#formModal">
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.1.1/build/css/intlTelInput.min.css">
+
+
+            @if (session('success'))
+                <div class="alert alert-success alert-dismissible fade show" role="alert" id="success-message" style="transition: opacity 0.5s;">
+                    {{ session('success') }}
+                </div>
+                <script>
+                    setTimeout(() => {
+                        const successMessage = document.getElementById('success-message');
+                        if (successMessage) {
+                            successMessage.style.opacity = '0';
+                            setTimeout(() => successMessage.remove(), 500);
+                        }
+                    }, 3000);
+                </script>
+            @elseif (session('error'))
+                <div class="alert alert-danger alert-dismissible fade show" role="alert" id="error-message" style="transition: opacity 0.5s;">
+                    {{ session('error') }}
+                </div>
+                <script>
+                    setTimeout(() => {
+                        const errorMessage = document.getElementById('error-message');
+                        if (errorMessage) {
+                            errorMessage.style.opacity = '0';
+                            setTimeout(() => errorMessage.remove(), 500);
+                        }
+                    }, 3000);
+                </script>
+            @elseif (session('message'))
+                <div class="alert alert-info alert-dismissible fade show" role="alert" id="info-message" style="transition: opacity 0.5s;">
+                    {{ session('message') }}
+                </div>
+                <script>
+                    setTimeout(() => {
+                        const infoMessage = document.getElementById('info-message');
+                        if (infoMessage) {
+                            infoMessage.style.opacity = '0';
+                            setTimeout(() => infoMessage.remove(), 500);
+                        }
+                    }, 3000);
+                </script>
+            @endif
+
+            <main class="container">
+                <div class="row banner-content">
+                    <div class="col-lg-8">
+                        <!-- Breadcrumb -->
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/company/home"><i class="bi bi-house-door"></i> Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Profile</li>
+                            </ol>
+                        </nav>
+
+                        <!-- Title Section -->
+                        <div class="mt-3 mb-4">
+                            <p class="banner-subtitle mb-2">Hello, {{ auth()->user()->name }}</p>
+                            <h1 class="page-title text-white">Profile</h1>
+                            <button type="button" class="btn btn-light p-2  align-items-center w-50 " data-bs-toggle="modal" data-bs-target="#formModal">
                     <i class="bi bi-plus-circle me-1"></i> Add Your Post
                 </button>
+
+                        </div>
+                    </div>
                 </div>
-                
-            </div>
-        </main>
-    </x-comNav>
-</header>
+            </main>
+        </x-comNav>
+    </header>
 
 
 
-<div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true">
+
+           
+
+
+            <div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header ">
                             <h5 class="modal-title text-secondary" id="formModalLabel">Add Post</h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-
-
-
-
-
-
                         <div class="modal-body">
                             <form  action="/company/addPost" method="post" enctype="multipart/form-data">
                                 @csrf
@@ -177,28 +237,24 @@
 
                                
                                 <div class="row">
-                                    <div class="col-md-6 mb-3">
+                                    <div class="col-md-6 mb-2">
                                         <div data-mdb-input-init class="form-outline">
                                             <label class="form-label" for="title">Title</label>
-                                            <input type="text" name="title" id="title" autofocus class="form-control form-control-lg"  required />
+                                            <input type="text" name="title" id="title" autofocus class="form-control form-control-md shadow-sm"  required />
                     
                                             @error('title')
                                                 <span class="text-danger small">{{ $message }}</span>
                                             @enderror
                                         </div>
                                     </div>
+
                                     
-                                 
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-12 mb-3 pb-2">
-
+                                    <div class="col-md-6 mb-2 ">
                                         <div data-mdb-input-init class="form-outline">
                                                     <label for="category" class="form-label">Category</label>
 
 
-                                                    <select class="form-select pb-2 pt-2 " id="category" name="category">
+                                                    <select class="form-select shadow-sm " id="category" name="category">
                                                         <option value="">Select Category</option>
                                                         <option value="Information Technology">Information Technology</option>
                                                         <option value="Design">Design</option>
@@ -215,34 +271,22 @@
                                                         <option value="Manufacturing">Manufacturing</option>
                                                         <option value="Public Services">Public Services</option>
                                                     </select>
+
+                                                    @error('category')
+                                                        <span class="text-danger small">{{ $message }}</span>
+                                                    @enderror
                                                 </div>      
-
-
                                     </div>
 
                                 </div>
-
-             
-
-                                <div class="row">
-                                    <div class="col mb-3 pb-2">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <label class="form-label" for="description">Description</label>
-                                            <input type="text" id="description" name="description" required class="form-control form-control-lg"  />
-                                            
-                                            @error('description')
-                                                <span class="text-danger small">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
+                            
 
                                 <div class="row">
-                                    <div class="col-md-6 mb-4 pb-2">
+                                    <div class="col-md-6 mb-2 ">
                                         <div data-mdb-input-init class="form-outline">
                                             <div class="form-group">
                                                     <label for="type" class="form-label">Type</label>
-                                                    <select class="form-select" id="type" name="type" required>
+                                                    <select class="form-select shadow-sm" id="type" name="type" required>
                                                         <option  value="" disabled selected>offer type</option>
                                                         <option name="type" value="job" >job</option>
                                                         <option name="type" value="training" >training</option>
@@ -254,49 +298,50 @@
                                             @error('type')
                                                 <span class="text-danger small">{{ $message }}</span>
                                             @enderror
-                                        </div>
-                                    <div class="col-md-6 mb-3  pb-2">
+                                    </div>
+
+                                    <div class="col-md-6 mb-2 mt-2 ">
                                         <div data-mdb-input-init class="form-outline">
                                             <div class="form-group">
                                                 <label for="location">Location</label>
-                                                <input id="location" type="text"  name="location"  class="form-control">
+                                                <input id="location" type="text"  name="location"  class="form-control form-control-md shadow-sm">
                                             </div>
                                             @error('location')
                                                 <span class="text-danger small">{{ $message }}</span>
                                             @enderror
                                         </div>
                                     </div>
+
                                 </div>
+
+
+
                                 <div class="row">
-                                    <div class="col-md-6 mb-3 pb-2">
+                                    <div class="col-md-6 mb-2 ">
                                         <div data-mdb-input-init class="form-outline">
                                             <label for="salary" class="form-label">Salary</label>
-                                            <input type="number" name="salary"  class="form-control form-control-lg" id="salary" placeholder="Enter salary" />
+                                            <input type="number" name="salary"  class="form-control form-control-md shadow-sm" id="salary" placeholder="Enter salary" />
                                         </div>
                                     </div>
-                                    <div class="col-md-6 mb-3 pb-2">
+                                    <div class="col-md-6 mb-2 ">
                                         <div data-mdb-input-init class="form-outline">
                                             <label class="form-label" for="duration">Duration</label>
-                                            <input type="text" name="duration" id="duration" required class="form-control form-control-lg" placeholder="Enter job duration" />
+                                            <input type="text" name="duration" id="duration" required class="form-control form-control-md shadow-sm" placeholder="Enter job duration" />
                                         </div>
                                     </div>
-                                </div>
-
+                                </div> 
                                 <div class="row">
-                                <div class="col-md-6 mb-3 pb-2 ">
+                                    <div class="col-md-12 mb-2 ">
                                         <div data-mdb-input-init class="form-outline">
-                                            <div class="form-group">
-                                                <label for="status">Opean</label>
-                                               <input type="radio" name="status" value="open"  class="form-check-input" > 
-                                               <label for="status">Closed</label>
-                                               <input type="radio" name="status" value="closed"  class="form-check-input" > 
-                                            </div>    
+                                            <label class="form-label" for="description">Description</label>
+                                            <textarea  id="description" name="description" required class="form-control form-control-md shadow-sm"  ></textarea>
+                                            
+                                            @error('description')
+                                                <span class="text-danger small">{{ $message }}</span>
+                                            @enderror
                                         </div>
-                                      </div>
-                                </div>
-                           
-
-                               
+                                    </div>
+                                </div>                          
 
                                 <div class=" pt-2 text-center">
                                     <button class="btn btn-primary btn-lg w-100" type="submit">Add Post</button>
@@ -309,9 +354,9 @@
                 </div>
 
 
-<div class="d-flex justify-content-between mt-3 container card-flex shadow">
+<div class="d-flex justify-content-end mt-5 bg-light  container card-flex shadow">
     <div class="mt-2 me-2">
-        <button type="button" class="btn btn-primary p-2 d-flex  align-items-center" data-bs-toggle="modal" data-bs-target="#formModal">
+        <button type="button" class="btn btn-primary p-2 d-flex  align-items-center" data-bs-toggle="modal" data-bs-target="#formModal1">
             <i class="bi bi-building me-1"></i> Edit Profile
         </button>
     </div>
@@ -403,7 +448,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true">
+<div class="modal fade" id="formModal1" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header ">
@@ -421,10 +466,10 @@
                     <input type="hidden" name="id" value="{{ Auth::user()->id }}">
 
                     <div class="row">
-                        <div class="col-6 col-sm-6 mb-3">
+                        <div class="col-6 col-sm-6 mb-2">
                             <div data-mdb-input-init class="form-outline">
                                 <label class="form-label" for="name">Company Name</label>
-                                <input type="text" name="name" id="name" autofocus class="form-control form-control-md" value="{{ $company->name }}" required />
+                                <input type="text" name="name" id="name" autofocus class="form-control form-control-md shadow-sm" value="{{ $company->name }}" required />
 
                                 @error('name')
                                 <span class="text-danger small">{{ $message }}</span>
@@ -434,9 +479,9 @@
 
 
 
-                        <div class="col-6  mb-3">
+                        <div class="col-6  mb-2">
                             <label for="category" class="form-label">company category</label>
-                            <select class="form-select  " id="category" name="category" required>
+                            <select class="form-select shadow-sm  " id="category" name="category" required>
                                 <option value="" disabled selected>company category</option>
                                 <option value="IT" {{ $company->category == 'IT' ? 'selected' : ''}}>IT</option>
                                 <option value="Finance" {{ $company->category == 'Finance' ? 'selected' : ''}}>Finance</option>
@@ -474,21 +519,21 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-6 col-sm-12 col-md-6  mb-3 ">
+                        <div class="col-md-6 col-sm-12 col-md-6  mb-2 ">
                             <div data-mdb-input-init class="form-outline">
                                 <label class="form-label" for="emailAddress">Email</label>
-                                <input type="email" id="emailAddress" name="email" required class="form-control form-control-md " value="{{ $company->email }}" />
+                                <input type="email" id="emailAddress" name="email" required class="form-control form-control-md shadow-sm" value="{{ $company->email }}" />
 
                                 @error('email')
                                 <span class="text-danger small">{{ $message }}</span>
                                 @enderror
                             </div>
                         </div>
-                        <div class="col-md-6 col-sm-12 col-md-6 mb-3 mt-2 ">
+                        <div class="col-md-6 col-sm-12 col-md-6 mb-2 mt-2 ">
                             <div data-mdb-input-init class="form-outline">
                                 <div class="form-group">
                                     <label for="img">upload images</label>
-                                    <input id="img" type="file" name="img" class="form-control">
+                                    <input id="img" type="file" name="img" class="form-control shadow-sm">
                                 </div>
                                 @error('img')
                                 <span class="text-danger small">{{ $message }}</span>
@@ -499,35 +544,35 @@
 
 
                     <div class="row">
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-6 mb-2">
                             <div data-mdb-input-init class="form-outline">
                                 <label class="form-label" for="Address">Address</label>
-                                <input type="text" name="address" id="adress" required class="form-control form-control-md" value="{{ $company->address }}">
+                                <input type="text" name="address" id="adress" required class="form-control form-control-md shadow-sm" value="{{ $company->address }}">
 
 
                             </div>
                         </div>
-                        <div class="col-md-6 mb-3">
+                        <div class="col-md-6 mb-2">
                             <div data-mdb-input-init class="form-outline">
-                                <label class="form-label" for="license">license</label>
-                                <input type="text" name="business_license" id="license" required class="form-control form-control-md" value="{{ $company->business_license }}">
+                                <label class="form-label" for="license">license <small>(Link)</small> </label>
+                                <input type="text" name="business_license" id="license" required class="form-control form-control-md shadow-sm" value="{{ $company->business_license }}">
 
                             </div>
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="col-md-12 mb-3">
+                        <div class="col-md-12 mb-2">
                             <div data-mdb-input-init class="form-outline">
                                 <label class="form-label" for="bio">bio</label>
-                                <input type="text" name="bio" id="bio" required class="form-control form-control-md" value="{{ $company->bio }}">
+                                <textarea  name="bio" id="bio" required class="form-control form-control-md shadow-sm" value="{{ $company->bio }}"></textarea>  
                             </div>
                         </div>
                     </div>
 
 
 
-                    <div class="mt-4 pt-2 text-center">
+                    <div class="mt-2 pt-2 text-center">
                         <button class="btn btn-primary btn-lg w-100" type="submit">Edit Company</button>
                     </div>
                 </form>
@@ -545,12 +590,16 @@
     <!-- Profile Info Section -->
     <div class="row">
       <div class="col-lg-4 ">
-        <div class="card mb-4 bg-light">
+        <div class="card mb-4 ">
           <div class="card-body text-center">
             <img src="{{asset($company->img)}}" style="width:250px ; height:250px; " alt="">
             <h5 class="my-3">{{$company->name}}</h5>
             <p class="text-muted mb-1">{{$company->category}}</p>
+            @if ($company->address != null)
+            
+            
             <p class="text-muted mb-2">Address: {{$company->address}}</p>
+            @endif
         </div>
     </div>
 
@@ -560,7 +609,7 @@
       </div>
 
       <div class="col-lg-8">
-         <div class="card mb-4 bg-light">
+         <div class="card mb-4 ">
           <div class="card-body">
             <div class="row">
               <div class="col-sm-3 pb-2">
@@ -571,6 +620,7 @@
               </div>
             </div>
             <hr>
+
             <div class="row">
               <div class="col-sm-3 pb-2">
                 <p class="mb-0">Email</p>
@@ -579,6 +629,8 @@
                   <a href="{{$company->email}}" class="text-decoration-none">{{$company->email}}</a>
               </div>
             </div>
+            @if($company->business_license != null)
+
             <hr>
             <div class="row">
               <div class="col-sm-3 pb-2">
@@ -588,6 +640,8 @@
                 <a href="{{$company->business_license}}"class=" mb-0 text-decoration-none text-primary">{{$company->name." license"}}</a>
               </div>
             </div>
+            @endif
+
             <hr>
             <div class="row">
               <div class="col-sm-3 pb-2">
@@ -598,15 +652,7 @@
               </div>
             </div>
             <hr>
-            <div class="row">
-              <div class="col-sm-3 pb-2">
-                <p class="mb-0">Expiry</p>
-              </div>
-              <div class="col-sm-9">
-                <p class="text-muted mb-0">{{$company->subscription_expiry}}</p>
-              </div>
-            </div>
-           <hr>
+           
            <div class="row">
               <div class="col-sm-3 pb-3">
                 <p class="mb-0">Status</p>
@@ -627,26 +673,29 @@
       </div>
     </div>
 
+ @if ($company->bio != null)
     <div class="row">
         <div class="col-lg-12">
-            <div class="card bg-light">
+            <div class="card ">
                 <div class="card-body">
                     <div class="row  text-center ">
                         <div class="col-lg-12">
                             <h3 class="text-muted">about</h3>
                         </div>
-                    </div>
-                    <div class="row  text-center ">
-                        <div class="col-lg-12">
-                            <p class="text-muted ">{{$company->bio}}</p>
-                        </div>
-                    </div>
-                </div>
+                    </div> 
+                    
+                        <div class="row  text-center ">
+                            <div class="col-lg-12">
+                                <p class="text-muted ">{{$company->bio}}</p>
+                            </div>
+                        </div> 
+               
+               
             </div>
         </div>
     </div>
-
-
+ </div>
+  @endif
 <!-- Job Posts Section -->
      
 <div class="row text-center 1 mt-5 mb-5">
@@ -710,7 +759,7 @@
     <div class="row">
         <!-- Average Rating -->
         <div class="col-md-6 ">
-            <div class="card bg-light shadow-sm d-flex flex-column h-100" >
+            <div class="card  shadow-sm d-flex flex-column h-100" >
                 <div class="card-body d-flex flex-column text-center">
                     <h5 class="card-title" style="font-size: 1.25rem;">Average Rating</h5>
                     <div class="my-3">
@@ -733,7 +782,7 @@
         <!-- Total Number of Reviews -->
         <div class="col-md-6">
             <div class="card shadow-sm d-flex flex-column" style="height: 100%">
-                <div class="card-body bg-light d-flex flex-column text-center">
+                <div class="card-body  d-flex flex-column text-center">
                     <h5 class="card-title" style="font-size: 1.25rem;">Total Reviews</h5>
                     <div class="my-3">
                         <i class="bi bi-chat-dots-fill text-primary" style="font-size: 2rem;"></i>
@@ -752,8 +801,8 @@
 
    
 @foreach ($reviews as $review)
-    <div class="mt-3">
-        <div class="card bg-light shadow-sm p-3 mb-4 d-flex flex-column" >
+    <div class="mt-3 ">
+        <div class="card  shadow-sm p-3 mb-4 d-flex flex-column" >
             <div class="d-flex">
                 <!-- User Image -->
                 <img src="{{ asset($review->users->img) }}" alt="User Image" class="rounded-circle me-3" style="width: 50px; height: 50px;">
@@ -761,7 +810,7 @@
                 <div class="w-100">
                     <!-- User Name and Time -->
                     <h6 class="mb-1">{{ $review->users->name }}</h6>
-                    <small class="text-muted">{{ $review->updated_at ? $review->updated_at->diffForHumans() : 'Not updated yet' }}</small>
+                    <small class="text-muted">{{ $review->created_at ? $review->created_at->diffForHumans() : 'Not updated yet' }}</small>
                     
                     <!-- Star Rating -->
                     <div class="mt-2">

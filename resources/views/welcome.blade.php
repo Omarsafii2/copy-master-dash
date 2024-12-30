@@ -88,14 +88,25 @@
             z-index: 2; /* Ensure it's above the background */
             object-fit: contain;
         }
+        .page-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
     </style>
 
     <div class="container d-flex align-items-center justify-content-between">
         <!-- Left Section -->
         <div class="content-box">
-            <h1>Welcome to MyWebsite</h1>
-            <p>This is a description of the website.</p>
-            <a href="#" class="btn btn-light">Learn More</a>
+        <div class="content-box">
+            <h1 class="page-title text-white">Discover Opportunities, Build Experience</h1>
+            
+            <div>
+                <a href="/jobs/job" class="btn btn-light "><i class="bi bi-search me-2"></i>Explore Jobs</a>
+                <a href="/CompanyLog" class="btn btn-success ms-3"><i class="bi bi-pencil me-2"></i>Post a Job</a>
+            </div>
+        </div>
         </div>
 
         <!-- Right Section -->
@@ -103,7 +114,7 @@
     </div>
 </header>
 
-<section >
+<section class="mt-5" >
     <h2 class="text-center text-primary mb-5 mt-5 fw-bold" style="font-size: 3rem">Popular Category</h2>
 
 
@@ -131,34 +142,21 @@
 
 
 <section class="mt-5 ">
+<h2 class="text-center text-primary mb-5 mt-5 fw-bold" style="font-size: 3rem">Browse Jobs</h2>
+
     <div class="container">
-        <!-- Header Section -->
-        <div class="row text-center mb-4">
-            <div class="col ">
-                <span class="text-primary fw-bold" style="font-size: 7rem">1000 <i class="fa-solid fa-plus"></i></span>
-                <h2 class="fw-bold text-primary">Browse From Our Top Jobs</h2>
-            </div>
-        </div>
-
-        <div class="row mb-4">
-            <div class="col-md-6 offset-md-3">
-                <input type="text" id="jobSearch" class="form-control" placeholder="Search jobs...">
-            </div>
-        </div>
-
-
         <!-- Main Content -->
         <div class="row">
             <!-- Left Sidebar -->
-            <div class="col-md-3">
-                <div class="bg-light p-4 shadow-sm rounded">
+            <div class="col-md-3 mb-3">
+                <div class="bg-primary p-4 shadow-sm rounded">
 
                     <!-- Filters -->
-                    <h5 class="fw-bold mt-3">Filter Jobs</h5>
+                    <h5 class="fw-bold mt-3 text-light">Filter Jobs</h5>
                     <form id="filter-form">
                         <!-- Category -->
                         <select name="category" class="form-select mb-3">
-                            <option value="">Select Category</option>
+                            <option value="">All</option>
                             <option value="Information Technology">Information Technology</option>
                             <option value="Design">Design</option>
                             <option value="Marketing">Marketing</option>
@@ -194,21 +192,32 @@
                         <input type="number" name="min_salary" class="form-control mb-2" placeholder="Min Salary">
                         <input type="number" name="max_salary" class="form-control mb-3" placeholder="Max Salary">
 
-                        <button type="submit" class="btn btn-primary w-100">Apply Filters</button>
+                        <button type="submit" class="btn btn-success w-100">Apply Filters</button>
                     </form>
                 </div>
             </div>
 
             <!-- Right Job Display -->
             <div class="col-md-9">
+            <div class="row mb-4">
+            <div class="col-md-12">
+                <form action="/" method="GET" id="jobSearchForm">
+                    <div class="input-group">
+                        <input type="text" name="search" id="jobSearch" class="form-control" placeholder="Search jobs..." value="{{ request('search') }}">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
                 <!-- Jobs Display -->
                 <div id="jobs-container">
                     <div class="row">
                         @foreach ($jobs as $job)
                         @if ($job->status == 'open')
-                        <div class="col-md-12 mb-4 job-card">
-                            <div class="card bg-light shadow-sm border-success">
-                                <div class="card-body d-flex align-items-center">
+                        <div class="col-md-12 mb-4 job-card ">
+                            <div class="card bg-light shadow-sm  border-success">
+                                <div class="card-body d-flex  align-items-center">
                                     <img src="{{ asset($job->company->img) }}" style="width:100px; height:100px;" class="me-3 rounded-circle" alt="Job Image">
                                     <div class="w-100"> <!-- This ensures the content takes full width -->
                                         <div class="d-flex justify-content-between">
@@ -218,7 +227,7 @@
                                             </div>
                                             <!-- Align the 'Apply Now' button to the right -->
                                             <div class="ms-auto">
-                                                <a href="{{url('/jobs/'.$job->id.'/jobProfile')}}" class="text-decoration-none btn btn-primary">Apply</a>
+                                                <a href="/jobs/{{$job->id}}/jobProfile" class="text-decoration-none btn btn-primary">Apply</a>
 
                                             </div>
                                         </div>
@@ -247,9 +256,9 @@
 </section>
 
 
-<section class="py-5 ">
-    <div class="container mb-5">
-        <h2 class="fw-bold text-primary text-center">Top Companies</h2>
+<section class="mt-5">
+    <div class="container ">
+        <h2 class="text-center text-primary mb-5 mt-5 fw-bold" style="font-size: 3rem">Popular Companies</h2>
     </div>
 
     <div id="companyCarousel" class="carousel slide" data-bs-ride="carousel">
@@ -298,12 +307,12 @@
 
 
 
-<section class="py-5  mb-5">
+<section class=" mt-5 mb-5">
     <div class="container">
-        <h2 class="fw-bold text-primary text-center mb-5">What People Are Saying</h2>
+        <h2 class="text-center text-primary mb-5 mt-5 fw-bold" style="font-size: 3rem" >What People Are Saying</h2>
         <div class="row">
             <!-- Testimonial 1 -->
-            <div class="col-md-4">
+            <div class="col-md-4 mb-3">
                 <div class="card bg-light shadow-sm h-100">
                     <div class="card-body">
                         <p class="card-text text-muted fst-italic">
@@ -322,7 +331,7 @@
             </div>
 
             <!-- Testimonial 2 -->
-            <div class="col-md-4">
+            <div class="col-md-4 mb-3">
                 <div class="card bg-light shadow-sm h-100">
                     <div class="card-body">
                         <p class="card-text text-muted fst-italic">
@@ -341,7 +350,7 @@
             </div>
 
             <!-- Testimonial 3 -->
-            <div class="col-md-4">
+            <div class="col-md-4 mb-3">
                 <div class="card bg-light shadow-sm h-100">
                     <div class="card-body">
                         <p class="card-text text-muted fst-italic">
@@ -368,53 +377,6 @@
 
 </main>
 
-<script>
-    document.getElementById('jobSearch').addEventListener('input', function() {
-        let searchQuery = this.value.toLowerCase();
-        let jobCards = document.querySelectorAll('.job-card');
-
-        jobCards.forEach(function(card) {
-            let title = card.querySelector('.job-title').textContent.toLowerCase();
-            let category = card.querySelector('.job-category').textContent.toLowerCase();
-
-            if (title.includes(searchQuery) || category.includes(searchQuery)) {
-                card.style.display = "block"; // Show matching cards
-            } else {
-                card.style.display = "none"; // Hide non-matching cards
-            }
-        });
-    });
-
-    $(document).ready(function() {
-
-
-        // Filter Form Submission
-        $('#filter-form').on('submit', function(e) {
-            e.preventDefault();
-            fetchJobs();
-        });
-
-        function fetchJobs() {
-            let query = {
-                search: $('#search-box').val(),
-                category: $('[name="category"]').val(),
-                type: $('[name="type"]').val(),
-                location: $('[name="location"]').val(),
-                min_salary: $('[name="min_salary"]').val(),
-                max_salary: $('[name="max_salary"]').val(),
-            };
-
-            $.ajax({
-                url: "{{ route('home') }}",
-                method: 'GET',
-                data: query,
-                success: function(response) {
-                    $('#jobs-container').html($(response).find('#jobs-container').html());
-                }
-            });
-        }
-    });
-</script>
 
 
 

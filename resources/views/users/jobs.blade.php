@@ -133,7 +133,7 @@
     </header>
 
 
-<section class=" ">
+<section class="mt-5 mb-5 ">
     <div class="container">
        
 
@@ -143,7 +143,7 @@
         <!-- Main Content -->
         <div class="row mt-5">
             <!-- Left Sidebar -->
-            <div class="col-md-3">
+            <div class="col-md-3 mb-3">
                 <div class="bg-primary p-4 shadow-sm rounded">
 
                     <!-- Filters -->
@@ -193,7 +193,7 @@
             </div>
 
             <!-- Right Job Display -->
-            <div class="col-md-9">
+            <div class="col-md-9 ">
             <div class="row mb-4">
             <div class="col-md-12">
                 <form action="/users/job/" method="GET" id="jobSearchForm">
