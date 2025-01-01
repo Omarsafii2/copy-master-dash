@@ -259,10 +259,12 @@ class CompanyControlller extends Controller
         $company->email = $request->email;
         $company->address = $request->address;
         $company->business_license = $request->business_license;
-        $company->password = bcrypt($request->password);
         $company->bio = $request->bio;
         if ($company->subscription_id != null) {
             $company->subscription_status = 'premium';
+        }
+        if ($request->filled('password')) {
+            $company->password = $request->password;
         }
         $company->save();
         return redirect()->route('company.profile')

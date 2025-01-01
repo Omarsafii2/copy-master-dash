@@ -289,24 +289,15 @@
                         <div class="col-lg-4">
                             <div class="job-card mb-4 position-relative">
                                 <!-- Three-dot button -->
-                                <button class="btn btn-link more-options-btn position-absolute top-0 end-0 mt-2 me-2" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <i class="bi bi-three-dots-vertical"></i> <!-- Using Bootstrap Icons -->
-                                </button>
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
-                                    <li><a class="dropdown-item" href="/company/editPost/{{$job->id}}">Edit</a></li>
-                                    <form action="/company/deletePost/{{$job->id}}" method="post">
-                                      @csrf
-                                      @method('DELETE')
-                                      <li><button class="dropdown-item"  onclick="return confirm('Are you sure you want to delete this job?')">Delete</></li>
-                                    </form>
-                                </ul>
+                                
+                              
 
                                 <h5 class="me-3 card-title">{{ $job->title }}</h5>
-                                <p class="card-text"><small class="text-muted">{{ $job->created_at }}</small></p>
-                                <p class="card-text">{{ $job->description }}</p>
+                                <p class="card-text"><small class="text-muted">{{ $job->created_at->diffForHumans() }}</small></p>
+                                <p class="card-text"><small class="text-muted">Category: {{ $job->category }}</small></p>
+                                <a href="/users/jobProfile/{{ $job->id }}" class="btn btn-primary">Show Details</a>
 
                                 <!-- Show Details Button -->
-                                <a href="/company/applications/{{$job->id}}" class="btn btn-primary">Show Applications</a>
                             </div>
                         </div>
                         @empty

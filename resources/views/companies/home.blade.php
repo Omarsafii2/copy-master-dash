@@ -138,28 +138,24 @@
 
                                
                                 <div class="row">
-                                    <div class="col-md-6 mb-3">
+                                    <div class="col-md-6 mb-2">
                                         <div data-mdb-input-init class="form-outline">
                                             <label class="form-label" for="title">Title</label>
-                                            <input type="text" name="title" id="title" autofocus class="form-control form-control-lg"  required />
+                                            <input type="text" name="title" id="title" autofocus class="form-control form-control-md shadow-sm"  required />
                     
                                             @error('title')
                                                 <span class="text-danger small">{{ $message }}</span>
                                             @enderror
                                         </div>
                                     </div>
+
                                     
-                                 
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-12 mb-3 pb-2">
-
+                                    <div class="col-md-6 mb-2 ">
                                         <div data-mdb-input-init class="form-outline">
                                                     <label for="category" class="form-label">Category</label>
 
 
-                                                    <select class="form-select pb-2 pt-2 " id="category" name="category">
+                                                    <select class="form-select shadow-sm " id="category" name="category">
                                                         <option value="">Select Category</option>
                                                         <option value="Information Technology">Information Technology</option>
                                                         <option value="Design">Design</option>
@@ -176,34 +172,22 @@
                                                         <option value="Manufacturing">Manufacturing</option>
                                                         <option value="Public Services">Public Services</option>
                                                     </select>
+
+                                                    @error('category')
+                                                        <span class="text-danger small">{{ $message }}</span>
+                                                    @enderror
                                                 </div>      
-
-
                                     </div>
 
                                 </div>
-
-             
-
-                                <div class="row">
-                                    <div class="col mb-3 pb-2">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <label class="form-label" for="description">Description</label>
-                                            <input type="text" id="description" name="description" required class="form-control form-control-lg"  />
-                                            
-                                            @error('description')
-                                                <span class="text-danger small">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
+                            
 
                                 <div class="row">
-                                    <div class="col-md-6 mb-4 pb-2">
+                                    <div class="col-md-6 mb-2 ">
                                         <div data-mdb-input-init class="form-outline">
                                             <div class="form-group">
                                                     <label for="type" class="form-label">Type</label>
-                                                    <select class="form-select" id="type" name="type" required>
+                                                    <select class="form-select shadow-sm" id="type" name="type" required>
                                                         <option  value="" disabled selected>offer type</option>
                                                         <option name="type" value="job" >job</option>
                                                         <option name="type" value="training" >training</option>
@@ -215,49 +199,50 @@
                                             @error('type')
                                                 <span class="text-danger small">{{ $message }}</span>
                                             @enderror
-                                        </div>
-                                    <div class="col-md-6 mb-3  pb-2">
+                                    </div>
+
+                                    <div class="col-md-6 mb-2 mt-2 ">
                                         <div data-mdb-input-init class="form-outline">
                                             <div class="form-group">
                                                 <label for="location">Location</label>
-                                                <input id="location" type="text"  name="location"  class="form-control">
+                                                <input id="location" type="text"  name="location"  class="form-control form-control-md shadow-sm">
                                             </div>
                                             @error('location')
                                                 <span class="text-danger small">{{ $message }}</span>
                                             @enderror
                                         </div>
                                     </div>
+
                                 </div>
+
+
+
                                 <div class="row">
-                                    <div class="col-md-6 mb-3 pb-2">
+                                    <div class="col-md-6 mb-2 ">
                                         <div data-mdb-input-init class="form-outline">
                                             <label for="salary" class="form-label">Salary</label>
-                                            <input type="number" name="salary"  class="form-control form-control-lg" id="salary" placeholder="Enter salary" />
+                                            <input type="number" name="salary"  class="form-control form-control-md shadow-sm" id="salary" placeholder="Enter salary" />
                                         </div>
                                     </div>
-                                    <div class="col-md-6 mb-3 pb-2">
+                                    <div class="col-md-6 mb-2 ">
                                         <div data-mdb-input-init class="form-outline">
                                             <label class="form-label" for="duration">Duration</label>
-                                            <input type="text" name="duration" id="duration" required class="form-control form-control-lg" placeholder="Enter job duration" />
+                                            <input type="text" name="duration" id="duration" required class="form-control form-control-md shadow-sm" placeholder="Enter job duration" />
                                         </div>
                                     </div>
-                                </div>
-
+                                </div> 
                                 <div class="row">
-                                <div class="col-md-6 mb-3 pb-2 ">
+                                    <div class="col-md-12 mb-2 ">
                                         <div data-mdb-input-init class="form-outline">
-                                            <div class="form-group">
-                                                <label for="status">Opean</label>
-                                               <input type="radio" name="status" value="open"  class="form-check-input" > 
-                                               <label for="status">Closed</label>
-                                               <input type="radio" name="status" value="closed"  class="form-check-input" > 
-                                            </div>    
+                                            <label class="form-label" for="description">Description</label>
+                                            <textarea  id="description" name="description" required class="form-control form-control-md shadow-sm"  ></textarea>
+                                            
+                                            @error('description')
+                                                <span class="text-danger small">{{ $message }}</span>
+                                            @enderror
                                         </div>
-                                      </div>
-                                </div>
-                           
-
-                               
+                                    </div>
+                                </div>                          
 
                                 <div class=" pt-2 text-center">
                                     <button class="btn btn-primary btn-lg w-100" type="submit">Add Post</button>

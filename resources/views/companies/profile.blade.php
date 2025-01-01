@@ -216,6 +216,15 @@
         </x-comNav>
     </header>
 
+    @if ($company->name == null || $company->bio == null || $company->address == null  || $company->email == null || $company->category == null ||$company->business_license == null )
+
+    <div class="alert alert-warning alert-dismissible fade show container mt-2" role="alert" id="info-message" style="transition: opacity 0.5s;">
+                  <p>Please Complete Your Profile</p>
+    </div>
+    
+    @endif
+    
+
 
 
 
@@ -398,15 +407,15 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="cardNumber" class="form-label">Card Number</label>
-                        <input type="text" name="card_number" id="cardNumber" class="form-control" required>
+                        <input type="text" name="card_number" id="cardNumber" class="form-control form-control-md shadow-sm" required>
                     </div>
                     <div class="mb-3">
                         <label for="cardHolderName" class="form-label">Cardholder Name</label>
-                        <input type="text" name="card_holder_name" id="cardHolderName" class="form-control" required>
+                        <input type="text" name="card_holder_name" id="cardHolderName" class="form-control form-control-md shadow-sm " required>
                     </div>
                     <div class="mb-3">
                         <label for="expiryDate" class="form-label">Expiry Date</label>
-                        <input type="month" name="expiry_date" id="expiryDate" class="form-control" required>
+                        <input type="month" name="expiry_date" id="expiryDate" class="form-control form-control-md shadow-sm" required>
                     </div>
                     <div class="mb-3">
                         <label for="cvv" class="form-label">CVV</label>
@@ -414,12 +423,11 @@
                     </div>
                     <div class="mb-3">
                         <label for="billingAddress" class="form-label">Billing Address</label>
-                        <textarea name="billing_address" id="billingAddress" class="form-control" rows="3" required></textarea>
+                        <textarea name="billing_address" id="billingAddress" class="form-control form-control-md shadow-sm " rows="3" required></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Upgrade to Premium</button>
+                    <button type="submit" class="btn btn-primary btn-lg w-100">Upgrade to Premium</button>
                 </div>
             </div>
         </form>
@@ -462,7 +470,7 @@
             <div class="modal-body">
                 <form action="/company/edit" method="post" enctype="multipart/form-data">
                     @csrf
-                    @method('patch')
+                    @method('put')
                     <input type="hidden" name="id" value="{{ Auth::user()->id }}">
 
                     <div class="row">
@@ -541,6 +549,22 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-2">
+                            <div data-mdb-input-init class="form-outline">
+                                <label class="form-label" for="password">Password </label>
+                                <input type="password" name="password" id="password"  class="form-control form-control-md shadow-sm" >
+
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-2">
+                            <div data-mdb-input-init class="form-outline">
+                                <label class="form-label" for="cpassword">Confirm Password</label>
+                                <input type="password" name="cpassword" id="cpassword"  class="form-control form-control-md shadow-sm">
+
+                            </div>
+                        </div>
+                    </div>
 
 
                     <div class="row">
@@ -555,7 +579,7 @@
                         <div class="col-md-6 mb-2">
                             <div data-mdb-input-init class="form-outline">
                                 <label class="form-label" for="license">license <small>(Link)</small> </label>
-                                <input type="text" name="business_license" id="license" required class="form-control form-control-md shadow-sm" value="{{ $company->business_license }}">
+                                <input type="text" name="business_license" id="license" class="form-control form-control-md shadow-sm" value="{{ $company->business_license }}">
 
                             </div>
                         </div>
@@ -565,7 +589,7 @@
                         <div class="col-md-12 mb-2">
                             <div data-mdb-input-init class="form-outline">
                                 <label class="form-label" for="bio">bio</label>
-                                <textarea  name="bio" id="bio" required class="form-control form-control-md shadow-sm" value="{{ $company->bio }}"></textarea>  
+                                <textarea  name="bio" id="bio"  class="form-control form-control-md shadow-sm" value="{{ $company->bio }}">{{$company->bio}}</textarea>  
                             </div>
                         </div>
                     </div>
@@ -728,8 +752,9 @@
                                 </ul>
 
                                 <h5 class="me-3 card-title">{{ $job->title }}</h5>
-                                <p class="card-text"><small class="text-muted">{{ $job->created_at }}</small></p>
-                                <p class="card-text">{{ $job->description }}</p>
+                                <p class="card-text"><small class="text-muted">{{ $job->created_at->diffForHumans() }}</small></p>
+                                <p class="card-text"><small class="text-muted">Category: {{ $job->category }}</small></p>
+                                <a href="/company/jobProfile/{{ $job->id }}" class="btn btn-primary me-1">Show Details</a>
 
                                 <!-- Show Details Button -->
                                 <a href="/company/applications/{{$job->id}}" class="btn btn-primary">Show Applications</a>
@@ -755,7 +780,7 @@
     
 
 
-    <div class="container mt-4">
+    <div class="container mt-4 mb-5">
     <div class="row">
         <!-- Average Rating -->
         <div class="col-md-6 ">

@@ -1,213 +1,243 @@
 <!DOCTYPE html>
-    <html lang="en">
+<html lang="en">
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Registration - Job Scope</title>
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-        <style>
-            body {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                color: #343a40;
-                font-family: Arial, sans-serif;
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Job Scope</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+
+   <style>
+        :root {
+            --primary-color: #4361ee;
+            --secondary-color: #3f37c9;
+            --accent-color: #4895ef;
+            --text-color: #2b2d42;
+            --light-text: #8d99ae;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+        }
+
+        .register-container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            width: 100%;
+            max-width: 1000px;
+            display: flex;
+            animation: slideIn 0.6s ease-out;
+        }
+
+        .register-image {
+            background: linear-gradient(135deg, var(--accent-color), var(--secondary-color)),
+                url('https://your-image-url.jpg');
+            background-size: cover;
+            background-position: center;
+            width: 50%;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+            color: white;
+        }
+
+        .register-form {
+            width: 50%;
+            padding: 20px;
+            background: white;
+        }
+
+        .form-title {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-color);
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+
+        .form-subtitle {
+            color: var(--light-text);
+            margin-bottom: 1rem;
+        }
+
+        .form-floating {
+            margin-bottom: 1rem;
+        }
+
+        .form-floating .form-control {
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+            padding: 1rem 0.75rem;
+            height: auto;
+            font-size: 1rem;
+        }
+
+        .form-floating .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: none;
+        }
+
+        .form-floating label {
+            padding: 1rem 0.75rem;
+        }
+
+        .btn-register {
+            background: var(--primary-color);
+            border: none;
+            border-radius: 10px;
+            padding: 0.8rem;
+            font-weight: 600;
+            width: 100%;
+            margin-top: 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-register:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .register-image {
+                display: none;
             }
 
-            .form-container {
+            .register-form {
                 width: 100%;
-                max-width: 600px;
-                background-color: #ffffff;
-                padding: 2rem;
-                border-radius: 1rem;
-                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
             }
-
-            .form-container h2 {
-                text-align: center;
-                margin-bottom: 1.5rem;
-                font-weight: bold;
-                color: #343a40;
-            }
-
-            .form-container .form-label {
-                font-weight: 500;
-                color: #495057;
-            }
-
-            .form-container .form-control {
-                border-radius: 0.5rem;
-            }
-
-            .form-container .btn-primary {
-                width: 100%;
-                font-size: 1.2rem;
-                padding: 0.75rem;
-                border-radius: 0.5rem;
-                transition: background-color 0.3s ease, transform 0.2s ease;
-            }
-
-            .form-container .btn-primary:hover {
-                background-color: #0056b3;
-                transform: scale(1.03);
-            }
-
-            .form-container .error-message {
-                font-size: 0.9rem;
-                color: #dc3545;
-            }
-
-            .file-info {
-                font-size: 0.8rem;
-                color: #6c757d;
-            }
+        }
         </style>
-    </head>
+</head>
 
-    <body class="bg-primary">
+<body>
 
-        
-@if (session('success'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert" id="success-message" style="transition: opacity 0.5s;">
-        {{ session('success') }}
-    </div>
-    <script>
-        setTimeout(() => {
-            const successMessage = document.getElementById('success-message');
-            if (successMessage) {
-                successMessage.style.opacity = '0'; // Start fading out
-                setTimeout(() => successMessage.remove(), 500); // Remove after fade-out
-            }
-        }, 3000); // 3-second delay before fade-out
-    </script>
-@elseif (session('error'))
-    <div class="alert alert-danger alert-dismissible fade show" role="alert" id="error-message" style="transition: opacity 0.5s;">
-        {{ session('error') }}
-    </div>
-    <script>
-        setTimeout(() => {
-            const errorMessage = document.getElementById('error-message');
-            if (errorMessage) {
-                errorMessage.style.opacity = '0'; // Start fading out
-                setTimeout(() => errorMessage.remove(), 500); // Remove after fade-out
-            }
-        }, 3000); // 3-second delay before fade-out
+    <div class="form-container">
+        @if (session('success'))
+            <div class="alert alert-success">{{ session('success') }}</div>
+        @elseif (session('error'))
+            <div class="alert alert-danger">{{ session('error') }}</div>
+        @endif
 
-    </script>
- @elseif (session('message'))
-    <div class="alert alert-info alert-dismissible fade show" role="alert" id="info-message" style="transition: opacity 0.5s;">
-        {{ session('message') }}
-    </div>
-    <script>
-        setTimeout(() => {
-            const infoMessage = document.getElementById('info-message');
-            if (infoMessage) {
-                infoMessage.style.opacity = '0'; // Start fading out
-                setTimeout(() => infoMessage.remove(), 500); // Remove after fade-out
-            }
-        }, 3000); // 3-second delay before fade-out
+        <div class="register-container">
+        <div class="register-image">
+            <h2 class="display-4 fw-bold mb-4">Join Us!</h2>
+            <p class="lead">Create your account and discover new opportunities today.</p>
+        </div>
 
-    </script>
-@endif
+        <div class="register-form">
+            <h2 class="form-title">Register</h2>
+            <p class="form-subtitle">Fill in the details to create your account</p>
 
 
-        <div class="m-5">
-            <!-- Registration Form Container -->
-            <div class="form-container">
-                <h2>Register for Job Scope</h2>
-                <form action="/user/register" method="POST" enctype="multipart/form-data">
-                    @csrf
+        <form action="/user/register" method="POST" enctype="multipart/form-data">
+            @csrf
 
-                    <!-- Company Name -->
-                    <div class="mb-3 row">
-                        <div class="col-md-6 mb-3">
-                                <label for="name" class="form-label">First Name</label>
-                                <input type="text" name="name" id="name" class="form-control" required>
-                                @error('name')
-                                <span class="error-message">{{ $message }}</span>
-                                @enderror
-                        </div>
-                        <div class="col-md-6 mb-3">
-                                <label for="name" class="form-label">Last Name</label>
-                                <input type="text" name="last_name" id="last_name" class="form-control" required>
-                                @error('last_name')
-                                <span class="error-message">{{ $message }}</span>
-                                @enderror
-                        </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="name" class="form-label">First Name</label>
+                    <input type="text" name="name" id="name" class="form-control shadow-sm" required>
+                    @error('name')
+                    <div class="error-message">{{ $message }}</div>
+                    @enderror
+                </div>
 
-                       
-                    </div>
-                      <div class="row">
-                        <!-- Email Address -->
-                        <div class="col-md-6  mb-2">
-                            <label for="emailAddress" class="form-label">Email Address</label>
-                            <input type="email" id="emailAddress" name="email" class="form-control" required>
-                            @error('email')
-                            <span class="error-message">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        <div class="col-md-6 mb-3">
-                            <label for="gender" class="form-label" >Gender</label>
-                            <select name="gender" id="gender" class="form-control" required>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                            </select>
-                            @error('gender')
-                            <span class="error-message">{{ $message }}</span>
-                            @enderror
-                        </div>
-                        </div>  
+                <div class="col-md-6 mb-3">
+                    <label for="last_name" class="form-label">Last Name</label>
+                    <input type="text" name="last_name" id="last_name" class="form-control shadow-sm" required>
+                    @error('last_name')
+                    <div class="error-message">{{ $message }}</div>
+                    @enderror
+                </div>
 
-                        <!-- Password and Confirm Password -->
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="password" class="form-label">Password</label>
-                                <input type="password" name="password" id="password" class="form-control" required>
-                                @error('password')
-                                <span class="error-message">{{ $message }}</span>
-                                @enderror
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="c-password" class="form-label">Confirm Password</label>
-                                <input type="password" name="cpassword" id="c-password" class="form-control" required>
-                                @error('cpassword')
-                                <span class="error-message">{{ $message }}</span>
-                                @enderror
-                            </div>
-                        </div>
+            </div>
 
-                        <div class="row">
-                        <!-- Upload Image -->
-                        <div class="col-md-6 mb-3">
-                            <label for="img" class="form-label">Upload Image</label>
-                            <input id="img" type="file" name="img" class="form-control">
-                            <div class="file-info">Accepted formats: jpg, png, jpeg</div>
-                            @error('img')
-                            <span class="error-message">{{ $message }}</span>
-                            @enderror
-                        </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="email" class="form-label">Email</label>
+                    <input type="email" name="email" id="email" class="form-control shadow-sm" required>
+                    @error('email')
+                    <div class="error-message">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="gender" class="form-label">Gender</label>
+                    <select name="gender" id="gender" class="form-control shadow-sm" required>
+                        <option value="male">Male</option>
+                        <option value="female">Female</option>
+                    </select>
+                </div>
 
-                        <!-- Address and License -->
-                     
-                            <div class="col-md-6 mb-3">
-                                <label for="education" class="form-label">Education</label>
-                                <select class="form-select" id="education" name="education" required>
-                                <option value="" disabled selected>Select your highest level of education</option>
-                                <option value="bechlore">Bachelor</option>
-                                <option value="master">Master</option>
-                                <option value="phd">PhD</option>
-                                </select>
-                                @error('category')
-                                <span class="error-message">{{ $message }}</span>
-                                @enderror        
-                            </select>
-                            </div>
-                        
-                        </div>
+            </div>
 
-                        <div class="row mb-3">
-                            <div class="col-md-12 mb-3">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" name="password" id="password" class="form-control shadow-sm " required>
+                    @error('password')
+                    <div class="error-message">{{ $message }}</div>
+                    @enderror
+                </div>
+
+                <div class="col-md-6 mb-3">
+                    <label for="cpassword" class="form-label">Confirm Password</label>
+                    <input type="password" name="cpassword" id="cpassword" class="form-control shadow-sm " required>
+                    @error('cpassword')
+                    <div class="error-message">{{ $message }}</div>
+                    @enderror
+                </div>
+            </div>
+
+            <div class="row">
+               
+                <div class="col-md-6 mb-3">
+                    <label for="img" class="form-label">Upload Image <small>(Optional)</small></label>
+                    <input id="img" type="file" name="img" class="form-control shadow-sm">
+                    @error('img')
+                    <span class="error-message">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label for="education" class="form-label">Education</label>
+                    <select class="form-select" id="education" name="education" required>
+                    <option value="" disabled selected>Select your highest level of education</option>
+                    <option value="bechlore">Bachelor</option>
+                    <option value="master">Master</option>
+                    <option value="phd">PhD</option>
+                    </select>
+                        @error('category')
+                        <span class="error-message">{{ $message }}</span>
+                        @enderror        
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+              
+
+                <div class="col-md-12 mb-3">
                                 <label for="category" class="form-label">Specialaization</label>
                                 <select name="category" id="category" class="form-control">
                                     <option value="IT">Information Technology</option>
@@ -238,15 +268,25 @@
                                     <option value="Other">Other</option>
                                 </select>
                             </div>
-                        </div>
 
-                        <!-- Submit Button -->
-                        <button type="submit" class="btn btn-primary">Register</button>
-                </form>
+
             </div>
-        </div>
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    </body>
+            <!-- Submit -->
+            <button type="submit" class="btn btn-primary w-100">Register</button>
 
-    </html>
+            <!-- Link to Login -->
+            <div class="link-container mt-3">
+                <p>Already have an account? <a href="/user/login" class="text-decoration-none fw-bold" >Login</a></p>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
+
+
+
+

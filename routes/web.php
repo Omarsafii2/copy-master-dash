@@ -104,7 +104,7 @@ Route::controller(AdminController::class)->group(function () {
            Route::post('/company/contact', 'postContact')->name('company.contactpost');
            Route::get('/company/logout', 'logout')->name('company.logout');
            Route::get('/company/profile', 'profile')->name('company.profile');
-           Route::patch('/company/edit', 'UpdateProfile')->name('company.edit');
+           Route::put('/company/edit', 'UpdateProfile')->name('company.edit');
            Route::delete('/company/delete/{id}', 'deleteProfile')->name('company.delete');
            Route::post('/company/addPost','addPost')->name('company.post');
            Route::get('/company/editPost/{id}','editPost')->name('company.editpost');

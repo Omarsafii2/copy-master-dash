@@ -177,7 +177,7 @@
     <div class="about-section text-center">
         <h1 class="section-heading mb-4">About Us</h1>
         <p class="lead">
-            Welcome to <strong>MyWebsite</strong>, your one-stop destination for connecting talent and opportunity. 
+            Welcome to <strong>Job Scope</strong>, your one-stop destination for connecting talent and opportunity. 
             We specialize in empowering students, recent graduates, and professionals by providing access to 
             training programs, temporary projects, and internships that lead to success.
         </p>
@@ -190,7 +190,7 @@
                 <div>
                     <h2 class="section-heading">Our Mission</h2>
                     <p>
-                        At <strong>MyWebsite</strong>, our mission is to create meaningful connections between 
+                        At <strong>Job Scope</strong>, our mission is to create meaningful connections between 
                         individuals and companies. By providing opportunities for skill development and career growth, 
                         we aim to build a stronger, more vibrant professional community.
                     </p>
@@ -218,7 +218,7 @@
             <div class="col-lg-4">
                 <div class="values-box text-center">
                     <h3>Collaboration</h3>
-                    <p>We believe in the power of teamwork to create positive, lasting impacts.</p>
+                    <p>We believe in the power of the teamwork to create positive, lasting impacts.</p>
                 </div>
             </div>
         </div>

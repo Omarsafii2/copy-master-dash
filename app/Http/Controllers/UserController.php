@@ -87,7 +87,7 @@ public function logout()
     Auth::guard('user')->logout();
 
     
-    return redirect()->route('user.login');
+    return redirect()->route('home')->with('success', 'You have successfully logged out.');
 }
 
 public function home(Request $request)
