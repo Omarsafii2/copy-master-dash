@@ -178,9 +178,15 @@
 
     <div class="row">
     <div class="mb-3">
-              <input type="text" id="searchInput" class="form-control" placeholder="Search users..." />
-            </div>
-        <div class="col">
+              <div class="col-md-12">
+                        <form action="/admin/manage" method="GET" id="jobSearchForm">
+                            <div class="input-group">
+                                <input type="text" name="search" id="jobSearch" class="form-control" placeholder="Search jobs..." value="{{ request('search') }}">
+                                <button type="submit" class="btn btn-primary">Search</button>
+                            </div>
+                        </form>
+                    </div>            </div>
+                <div class="col">
             <div class="table-responsive">
             <table class="table table-striped">
                 <thead class="thead-dark">

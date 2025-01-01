@@ -131,7 +131,7 @@
 
 
                         <div class="modal-body">
-                            <form  action="/company/addPost" method="post" enctype="multipart/form-data">
+                        <form  action="/company/addPost" method="post" enctype="multipart/form-data">
                                 @csrf
 
                                 <input type="hidden" name="company_id" id="company_id" value="{{ Auth::user()->id }}"  required />
@@ -200,8 +200,38 @@
                                                 <span class="text-danger small">{{ $message }}</span>
                                             @enderror
                                     </div>
+                                    <div class="col-md-6 mb-2 ">
+                                        <div data-mdb-input-init class="form-outline">
+                                            <label class="form-label" for="duration">Duration</label>
+                                            <input type="text" name="duration" id="duration" required class="form-control form-control-md shadow-sm" placeholder="Enter job duration" />
+                                        </div>
+                                    </div>
 
-                                    <div class="col-md-6 mb-2 mt-2 ">
+                                   
+
+                                </div>
+
+
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-2 ">
+                                        <div data-mdb-input-init class="form-outline">
+                                            <label for="min_salary" class="form-label">Min Salary</label>
+                                            <input type="number" name="min_salary"  class="form-control form-control-md shadow-sm" id="min_salary" placeholder="Enter salary" />
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-6 mb-2 ">
+                                        <div data-mdb-input-init class="form-outline">
+                                            <label for="salary" class="form-label">Max Salary</label>
+                                            <input type="number" name="salary"  class="form-control form-control-md shadow-sm" id="salary" placeholder="Enter salary" />
+                                        </div>
+                                    </div>
+                                    
+                                </div> 
+                                <div class="row">
+                                    
+                                <div class="col-md-12 mb-2 mt-2 ">
                                         <div data-mdb-input-init class="form-outline">
                                             <div class="form-group">
                                                 <label for="location">Location</label>
@@ -212,25 +242,7 @@
                                             @enderror
                                         </div>
                                     </div>
-
                                 </div>
-
-
-
-                                <div class="row">
-                                    <div class="col-md-6 mb-2 ">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <label for="salary" class="form-label">Salary</label>
-                                            <input type="number" name="salary"  class="form-control form-control-md shadow-sm" id="salary" placeholder="Enter salary" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 mb-2 ">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <label class="form-label" for="duration">Duration</label>
-                                            <input type="text" name="duration" id="duration" required class="form-control form-control-md shadow-sm" placeholder="Enter job duration" />
-                                        </div>
-                                    </div>
-                                </div> 
                                 <div class="row">
                                     <div class="col-md-12 mb-2 ">
                                         <div data-mdb-input-init class="form-outline">
@@ -376,7 +388,12 @@
                                         </div>
                                         <div class="d-flex text-muted">
                                             <p class="card-text pe-5"><strong><i class="bi bi-geo-alt"></i></strong> {{ $job->location }}</p>
-                                            <p class="card-text pe-5"><strong><i class="bi bi-currency-dollar"></i></strong>{{$job->salary }}</p>
+                                            @if ($job->min_salary != null)
+                                            <p class="card-text pe-5"><strong><i class="bi bi-currency-dollar"></i></strong>{{$job->min_salary}}&nbsp; <i class="bi bi-arrow-right"></i> &nbsp;{{ $job->salary }}</p>
+                                            @else
+                                            <p class="card-text pe-5"><strong><i class="bi bi-currency-dollar"></i></strong>{{ $job->salary }}</p>
+
+                                            @endif
                                             <p class="card-text"><strong><i class="bi bi-clock"></i></strong>{{ $job->type }}</p>
                                         </div>
                                     </div>

@@ -178,7 +178,7 @@
                             <i class="bi bi-currency-dollar me-3 fs-4 text-warning"></i>
                             <div class="d-flex">
                                 <h6 class="mb-0 fw-bold">Salary:</h6>
-                                <p class="text-muted mb-0 ms-1">{{$job->salary}}</p>
+                                <p class="text-muted mb-0 ms-2">{{$job->min_salary}}&nbsp;  <i class="bi bi-arrow-right"></i> &nbsp;{{$job->salary}}</p>
                             </div>
                         </div>
 

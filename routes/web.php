@@ -64,7 +64,7 @@ Route::controller(AdminController::class)->group(function () {
         Route::delete('/admin/user/{id}', 'UserDelete')->name('admin.userdelete');
 
 
-        Route::get('admin/company','CompanyIndex')->name('admin.company');
+        Route::get('/admin/company','CompanyIndex')->name('admin.company');
         Route::post('/admin/addcompany','CompanyStore')->name('admin.addcompany');
         Route::get('admin/{id}/companyprofile','CompanyProfile')->name('admin.companyprofile');
         Route::patch('/admin/editcompany','CompanyUpdate')->name('admin.editcompany');

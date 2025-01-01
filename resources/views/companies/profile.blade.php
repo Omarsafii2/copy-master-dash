@@ -308,8 +308,38 @@
                                                 <span class="text-danger small">{{ $message }}</span>
                                             @enderror
                                     </div>
+                                    <div class="col-md-6 mb-2 ">
+                                        <div data-mdb-input-init class="form-outline">
+                                            <label class="form-label" for="duration">Duration</label>
+                                            <input type="text" name="duration" id="duration" required class="form-control form-control-md shadow-sm" placeholder="Enter job duration" />
+                                        </div>
+                                    </div>
 
-                                    <div class="col-md-6 mb-2 mt-2 ">
+                                   
+
+                                </div>
+
+
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-2 ">
+                                        <div data-mdb-input-init class="form-outline">
+                                            <label for="min_salary" class="form-label">Min Salary</label>
+                                            <input type="number" name="min_salary"  class="form-control form-control-md shadow-sm" id="min_salary" placeholder="Enter salary" />
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-6 mb-2 ">
+                                        <div data-mdb-input-init class="form-outline">
+                                            <label for="salary" class="form-label">Max Salary</label>
+                                            <input type="number" name="salary"  class="form-control form-control-md shadow-sm" id="salary" placeholder="Enter salary" />
+                                        </div>
+                                    </div>
+                                    
+                                </div> 
+                                <div class="row">
+                                    
+                                <div class="col-md-12 mb-2 mt-2 ">
                                         <div data-mdb-input-init class="form-outline">
                                             <div class="form-group">
                                                 <label for="location">Location</label>
@@ -320,25 +350,7 @@
                                             @enderror
                                         </div>
                                     </div>
-
                                 </div>
-
-
-
-                                <div class="row">
-                                    <div class="col-md-6 mb-2 ">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <label for="salary" class="form-label">Salary</label>
-                                            <input type="number" name="salary"  class="form-control form-control-md shadow-sm" id="salary" placeholder="Enter salary" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 mb-2 ">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <label class="form-label" for="duration">Duration</label>
-                                            <input type="text" name="duration" id="duration" required class="form-control form-control-md shadow-sm" placeholder="Enter job duration" />
-                                        </div>
-                                    </div>
-                                </div> 
                                 <div class="row">
                                     <div class="col-md-12 mb-2 ">
                                         <div data-mdb-input-init class="form-outline">

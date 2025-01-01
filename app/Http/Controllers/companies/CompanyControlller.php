@@ -296,6 +296,7 @@ class CompanyControlller extends Controller
             'description' => 'required',
             'type' => 'required',
             'location' => 'required',
+            'min_salary' => 'required|numeric',
             'salary' => 'required|numeric',
             'duration' => 'required',
             'category' => 'required',
@@ -308,6 +309,7 @@ class CompanyControlller extends Controller
         $job->description = $request->description;
         $job->type = $request->type;
         $job->location = $request->location;
+        $job->min_salary = $request->min_salary;
         $job->salary = $request->salary;
         $job->duration = $request->duration;
         $job->category = $request->category;

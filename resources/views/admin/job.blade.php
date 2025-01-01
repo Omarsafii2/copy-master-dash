@@ -7,180 +7,11 @@
 
 
                 
-<div class="mt-2 me-2">
-    <button type="button" class="btn btn-primary p-2 d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#formModal">
-        <i class="bi bi-plus-circle me-1"></i> Add Post
-    </button>
-</div>
 
 
 
 
 
-
-
-
-
-
-
-
-
-                <div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header ">
-                            <h5 class="modal-title text-secondary" id="formModalLabel">Add Post</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-
-
-
-
-
-                        <div class="modal-body">
-                            <form  action="/admin/addjob" method="post" enctype="multipart/form-data">
-                                @csrf
-                               
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <label class="form-label" for="title">Title</label>
-                                            <input type="text" name="title" id="title" autofocus class="form-control form-control-lg"  required />
-                    
-                                            @error('title')
-                                                <span class="text-danger small">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <label class="form-label" for="company_id">Company Id</label>
-                                            <input type="text" name="company_id" id="company_id" autofocus class="form-control form-control-lg"  required />
-                    
-                                            @error('company_id')
-                                                <span class="text-danger small">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                 
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-12 mb-3 pb-2">
-
-                                        <div data-mdb-input-init class="form-outline">
-                                                    <label for="category" class="form-label">Category</label>
-
-
-                                                    <select class="form-select pb-2 pt-2 " id="category" name="category">
-                                                        <option value="">Select Category</option>
-                                                        <option value="Information Technology">Information Technology</option>
-                                                        <option value="Design">Design</option>
-                                                        <option value="Marketing">Marketing</option>
-                                                        <option value="Education">Education</option>
-                                                        <option value="Accounting">Accounting</option>
-                                                        <option value="Healthcare">Healthcare</option>
-                                                        <option value="Engineering">Engineering</option>
-                                                        <option value="Logistics">Logistics</option>
-                                                        <option value="Management">Management</option>
-                                                        <option value="Tourism">Tourism</option>
-                                                        <option value="Media">Media</option>
-                                                        <option value="Agriculture">Agriculture</option>
-                                                        <option value="Manufacturing">Manufacturing</option>
-                                                        <option value="Public Services">Public Services</option>
-                                                    </select>
-                                                </div>      
-
-
-                                    </div>
-
-                                </div>
-
-             
-
-                                <div class="row">
-                                    <div class="col mb-3 pb-2">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <label class="form-label" for="description">Description</label>
-                                            <input type="text" id="description" name="description" required class="form-control form-control-lg"  />
-                                            
-                                            @error('description')
-                                                <span class="text-danger small">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-6 mb-4 pb-2">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <div class="form-group">
-                                                    <label for="type" class="form-label">Type</label>
-                                                    <select class="form-select" id="type" name="type" required>
-                                                        <option  value="" disabled selected>offer type</option>
-                                                        <option name="type" value="job" >job</option>
-                                                        <option name="type" value="training" >training</option>
-                                                        <option name="type" value="part-time" >part-time</option>" 
-                                                    </select>
-                                            </div>
-                                        </div>
-                                    
-                                            @error('type')
-                                                <span class="text-danger small">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    <div class="col-md-6 mb-3  pb-2">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <div class="form-group">
-                                                <label for="location">Location</label>
-                                                <input id="location" type="text"  name="location"  class="form-control">
-                                            </div>
-                                            @error('location')
-                                                <span class="text-danger small">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6 mb-3 pb-2">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <label for="salary" class="form-label">Salary</label>
-                                            <input type="number" name="salary"  class="form-control form-control-lg" id="salary" placeholder="Enter salary" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 mb-3 pb-2">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <label class="form-label" for="duration">Duration</label>
-                                            <input type="text" name="duration" id="duration" required class="form-control form-control-lg" placeholder="Enter job duration" />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                <div class="col-md-6 mb-3 pb-2 ">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <div class="form-group">
-                                                <label for="status">Opean</label>
-                                               <input type="radio" name="status" value="open"  class="form-check-input" > 
-                                               <label for="status">Closed</label>
-                                               <input type="radio" name="status" value="closed"  class="form-check-input" > 
-                                            </div>    
-                                        </div>
-                                      </div>
-                                </div>
-                           
-
-                               
-
-                                <div class=" pt-2 text-center">
-                                    <button class="btn btn-primary btn-lg w-100" type="submit">Add Post</button>
-                                </div>
-                                </div>
-                            </form>
-                        </div>
-
-                    </div>
-                </div>
              </div>
             
         </nav>
@@ -189,8 +20,14 @@
 
     <div class="row">
     <div class="mb-3">
-              <input type="text" id="searchInput" class="form-control" placeholder="Search users..." />
-            </div>
+    <div class="col-md-12">
+                <form action="/admin/job" method="GET" id="jobSearchForm">
+                    <div class="input-group">
+                        <input type="text" name="search" id="jobSearch" class="form-control" placeholder="Search jobs..." value="{{ request('search') }}">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
+                </form>
+            </div>                 </div>
         <div class="col">
             <div class="table-responsive">
             <table class="table table-striped">
@@ -232,7 +69,7 @@
                             </td>
 
                             <td class="align-middle ">
-                                <p class="text-bold">{{$job->salary}}</p>
+                                <p class="text-bold text-muted">{{number_format($job->min_salary) }}&nbsp; <i class="bi bi-arrow-right"></i> &nbsp;{{number_format($job->salary)." JOD"}}</p>
                             </td>
 
                             <td class="align-middle">
@@ -271,26 +108,7 @@
     </div>
     </div>
 
-    <script>
-        document.getElementById('searchInput').addEventListener('input', function() {
-        const searchValue = this.value.toLowerCase();
-        const rows = document.querySelectorAll('table tbody tr');
-
-        rows.forEach(row => {
-            const name = row.querySelector('td').innerText.toLowerCase();
-            const phone = row.querySelector('td:nth-child(2)').innerText.toLowerCase();
-
-            // Show or hide row based on search query
-            if (name.includes(searchValue) || phone.includes(searchValue)) {
-                row.style.display = '';  // Show row
-            } else {
-                row.style.display = 'none';  // Hide row
-            }
-        });
-    });
-
-    </script>
-    
+   
     
      
     

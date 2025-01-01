@@ -82,22 +82,21 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link text-light active" aria-current="page" href="/company/home">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-light" href="/company/job">Jobs</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-light" href="/company/about">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-light" href="/company/contact">Contact</a>
-                    </li>
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    <li class="nav-item">
+        <a class="nav-link text-light {{ Request::is('company/home') ? 'active' : '' }}" href="/company/home">Home</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-light {{ Request::is('company/job') ? 'active' : '' }}" href="/company/job">Jobs</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-light {{ Request::is('company/about') ? 'active' : '' }}" href="/company/about">About</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-light {{ Request::is('company/contact') ? 'active' : '' }}" href="/company/contact">Contact</a>
+    </li>
+</ul>
 
-                    
-                </ul>
 
                 <div class="auth-links d-flex align-items-center mt-2">
 

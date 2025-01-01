@@ -109,8 +109,18 @@ class AdminController extends Controller
 
 
     
-   public function manage(){
-    $admins = Admin::orderBy('id', 'desc')->paginate(10);
+   public function manage(Request $request){
+            $query = Admin::query();
+            // Check if the search input is filled
+            if ($request->filled('search')) {
+                $search = $request->input('search');
+                $query->where(function ($q) use ($search) {
+                    $q->where('name', 'like', '%' . $search . '%') // Search by company name
+                      ->orWhere('email', 'like', '%' . $search . '%') // Search by company email
+                      ->orWhere('role', 'like', '%' . $search . '%'); // Search by subscription start date
+                });
+            }
+    $admins =$query->orderBy('id', 'desc')->paginate(10);
     return view('admin.manage', ['admins' => $admins]);
 }
 
@@ -217,11 +227,26 @@ public function AdminStore(Request $request){
     }
 
 
-    public function UserIndex(){
+    public function UserIndex(Request $request)
+{
+    $query = User::query(); // Start a query builder
 
-        $users = User::orderBy('id', 'desc')->paginate(10); // Ascending order
-        return view('admin.user', ['users'=>$users]);
+    // Check if the search input is filled
+    if ($request->filled('search')) {
+        $search = $request->input('search');
+        $query->where(function ($q) use ($search) {
+            $q->where('name', 'like', '%' . $search . '%') // Change 'title' and 'description' to valid column names
+              ->orWhere('email', 'like', '%' . $search . '%'); // Example: Searching in 'name' or 'email'
+        });
     }
+
+    // Apply sorting and paginate the results
+    $users = $query->orderBy('id', 'desc')->paginate(10);
+
+    // Pass users and the search query to the view
+    return view('admin.user', ['users' => $users]);
+}
+
 
     public function UserStore(Request $request)
     {
@@ -353,11 +378,27 @@ public function AdminStore(Request $request){
 
             // ******************************************************************************
             //*********************************************************************************************** */
-            public function CompanyIndex(){
-                $companies =Company::orderBy('id', 'desc')->paginate(10); // Ascending order
-                return view('admin.company', ['companies'=>$companies]);
-                
-            }
+            public function CompanyIndex(Request $request)
+                {
+                    // Start a query builder
+                    $query = Company::query();
+
+                    // Check if the search input is filled
+                    if ($request->filled('search')) {
+                        $search = $request->input('search');
+                        $query->where(function ($q) use ($search) {
+                            $q->where('name', 'like', '%' . $search . '%') // Search by company name
+                            ->orWhere('email', 'like', '%' . $search . '%'); // Search by company email
+                        });
+                    }
+
+                    // Apply sorting and paginate the results
+                    $companies = $query->orderBy('id', 'desc')->paginate(10);
+
+                    // Pass companies and the search query to the view
+                    return view('admin.company', ['companies' => $companies]);
+                }
+
             public function CompanyStore(Request $request){
                 $request->validate([
                     'name' => 'required|string|max:255',
@@ -471,12 +512,31 @@ public function AdminStore(Request $request){
              * 8************************************************************/
 
 
-                public function JobIndex(){
-                    $jobs =Job::with('company')->orderBy('id', 'desc')->paginate(10); // Ascending order
-                    
-                    return view('admin.job', ['jobs'=>$jobs]);
-                    
-                }
+             public function JobIndex(Request $request)
+             {
+                 $query = Job::query()->with('company');
+             
+                 // Check if the search input is filled
+                 if ($request->filled('search')) {
+                     $search = $request->input('search');
+                     $query->where(function ($q) use ($search) {
+                         $q->where('title', 'like', '%' . $search . '%') // Search in job title
+                           ->orWhere('type', 'like', '%' . $search . '%') // Search in job type
+                           ->orWhere('location', 'like', '%' . $search . '%')
+                           ->orWhere('salary', 'like', '%' . $search . '%') // Search in job location
+                           ->orWhereHas('company', function ($companyQuery) use ($search) {
+                               $companyQuery->where('name', 'like', '%' . $search . '%'); // Search in company name
+                           });
+                     });
+                 }
+             
+                 // Order the results and paginate
+                 $jobs = $query->orderBy('id', 'desc')->paginate(10);
+             
+                 // Return the view with the jobs data
+                 return view('admin.job', ['jobs' => $jobs]);
+             }
+             
 
                 public function JobStore(Request $request){
                     $request->validate([
@@ -555,11 +615,28 @@ public function AdminStore(Request $request){
             
         //    ***************************************************************
 
-        public function SubscriptionsIndex(){
-            $subscriptions =Subscription::withCount('companies')->orderBy('id', 'desc')->paginate(10); // Ascending order
-            return view('admin.subscriptions', ['subscriptions'=>$subscriptions]);
+        public function SubscriptionsIndex(Request $request)
+        {
+            $query = Company::query();
+        
+            // Filter companies with subscription_status == 'primary'
+            $query->where('subscription_status', 'premium');
+        
+            // Check if the search input is filled
+            if ($request->filled('search')) {
+                $search = $request->input('search');
+                $query->where(function ($q) use ($search) {
+                    $q->where('name', 'like', '%' . $search . '%') // Search by company name
+                      ->orWhere('email', 'like', '%' . $search . '%') // Search by company email
+                      ->orWhere('subscription_start_date', 'like', '%' . $search . '%'); // Search by subscription start date
+                });
+            }
+        
+            $subscriptions = $query->orderBy('id', 'desc')->paginate(10);
+        
+            return view('admin.subscriptions', ['subscriptions' => $subscriptions]);
         }
-
+        
 
         public function subscriptionStore(Request $request){
             $request->validate([
@@ -593,8 +670,20 @@ public function AdminStore(Request $request){
 
         // **************************************************************
 
-        public function ContactIndex(){
-            $contacts =Contact::orderBy('id', 'desc')->paginate(10); // Ascending order
+        public function ContactIndex(Request $request){
+            $query = Contact::query();
+        
+        
+            // Check if the search input is filled
+            if ($request->filled('search')) {
+                $search = $request->input('search');
+                $query->where(function ($q) use ($search) {
+                    $q->where('name', 'like', '%' . $search . '%') // Search by company name
+                      ->orWhere('email', 'like', '%' . $search . '%') // Search by company email
+                      ->orWhere('subject', 'like', '%' . $search . '%'); // Search by subscription start date
+                });
+            }
+            $contacts =$query->orderBy('id', 'desc')->paginate(10); // Ascending order
             return view('admin.contact', ['contacts'=>$contacts]);
         }
 

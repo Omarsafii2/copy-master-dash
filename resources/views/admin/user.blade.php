@@ -6,154 +6,13 @@
         <div class="d-flex justify-content-between ">
             
             <h1 class="text-secondary">Users</h1>
-            <div class="mt-2">
-            <button type="button" class="btn btn-primary p-2 d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#formModal">
-                <i class="bi bi-person-plus me-1"></i> Add User
-            </button>
-        </div>
+          
 
 
            
 
 
-            <div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header ">
-                            <h5 class="modal-title text-secondary" id="formModalLabel">Add New User</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-
-
-
-                        <div class="modal-body">
-                            <form id="phoneForm" action="/admin/add" method="post" enctype="multipart/form-data">
-                                @csrf
-                                <div class="row">
-                                    <div class="col-md-6 mb-4">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <input type="text" name="name" id="firstName" autofocus class="form-control form-control-lg" required />
-                                            <label class="form-label" for="firstName">First Name</label>
-                                            @error('name')
-                                                <span class="text-danger small">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <input type="text" id="lastName" name="last_name" class="form-control form-control-lg" required />
-                                            <label class="form-label" for="lastName">Last Name</label>
-                                            @error('last_name')
-                                                <span class="text-danger small">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col mb-3 pb-2">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <input type="email" id="emailAddress" name="email" required class="form-control form-control-lg" />
-                                            <label class="form-label" for="emailAddress">Email</label>
-                                            @error('email')
-                                                <span class="text-danger small">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <input type="password" name="password" id="password" required class="form-control form-control-lg">
-                                            <label class="form-label" for="password">Password</label>
-                                            @error('password')
-                                                <script>alert("{{ $message }}");</script>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <input type="password" name="cpassword" id="c-password" required class="form-control form-control-lg">
-                                            <label class="form-label" for="c-password">Confirm Password</label>
-                                            @error('cpassword')
-                                                <span class="text-danger small">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row ">
-                                    <div class="col-md-8 mb-4 pb-2">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <div class="form-group">
-                                                <label for="img">upload images</label>
-                                                <input id="img" type="file"  name="img" class="form-control">
-                                            </div>
-                                            @error('img')
-                                                <span class="text-danger small">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                        <div class="col-md-4 mt-4 pb-2 ">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <div class="form-group">
-                                            <p>jpg,png.jpeg</p>    
-                                            </div>
-                                            
-                                        </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-6 mb-4 pb-2">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <div class="form-group">
-                                                <label for="phone">Phone Number:</label>
-                                                <input id="phone" type="tel" name="phone_number" class="form-control">
-                                            </div>
-                                            @error('phone_number')
-                                                <span class="text-danger small">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-6 mb-4">
-                                        <h6 class="mb-2 pb-1">Gender:</h6>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="gender" id="femaleGender" value="female" checked />
-                                            <label class="form-check-label" for="femaleGender">Female</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="gender" id="maleGender" value="male" />
-                                            <label class="form-check-label" for="maleGender">Male</label>
-                                        </div>
-                                        @error('gender')
-                                            <span class="text-danger small">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12 mb-4 pb-2">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <div class="form-group">
-                                                <label for="bio">about</label>
-                                                <input id="bio" type="text" name="bio" class="form-control">
-                                            </div>
-                                            @error('phone_number')
-                                                <span class="text-danger small">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-
-                                <div class="mt-4 pt-2 text-center">
-                                    <button class="btn btn-primary btn-lg w-100" type="submit">Add User</button>
-                                </div>
-                            </form>
-                        </div>
-
-                    </div>
-                </div>
-             </div>                       
+                                 
         </div>
     </nav>
 
@@ -162,8 +21,14 @@
     
     <div class="row">
     <div class="mb-3">
-              <input type="text" id="searchInput" class="form-control" placeholder="Search users..." />
-            </div>
+    <div class="col-md-12">
+                <form action="/admin/user" method="GET" id="jobSearchForm">
+                    <div class="input-group">
+                        <input type="text" name="search" id="jobSearch" class="form-control" placeholder="Search jobs..." value="{{ request('search') }}">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
+                </form>
+            </div>            </div>
         <div class="col">
             <div class="table-responsive" >
             <table class="table table-striped">
@@ -283,22 +148,6 @@ document.querySelector("#phoneForm").addEventListener("submit", function (event)
   }
 });
 
-document.getElementById('searchInput').addEventListener('input', function() {
-        const searchValue = this.value.toLowerCase();
-        const rows = document.querySelectorAll('table tbody tr');
-
-        rows.forEach(row => {
-            const name = row.querySelector('td').innerText.toLowerCase();
-            const phone = row.querySelector('td:nth-child(2)').innerText.toLowerCase();
-
-            // Show or hide row based on search query
-            if (name.includes(searchValue) || phone.includes(searchValue)) {
-                row.style.display = '';  // Show row
-            } else {
-                row.style.display = 'none';  // Hide row
-            }
-        });
-    });
 
   </script>
 

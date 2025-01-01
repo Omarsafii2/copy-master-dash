@@ -233,7 +233,13 @@
                                         </div>
                                         <div class="d-flex text-muted">
                                             <p class="card-text pe-5"><strong><i class="bi bi-geo-alt"></i></strong> {{ $job->location }}</p>
-                                            <p class="card-text pe-5"><strong><i class="bi bi-currency-dollar"></i></strong>{{$job->salary }}</p>
+
+                                            @if ($job->min_salary != null)
+                                            <p class="card-text pe-5"><strong><i class="bi bi-currency-dollar"></i></strong>{{$job->min_salary}}&nbsp; <i class="bi bi-arrow-right"></i> &nbsp;{{ $job->salary }}</p>
+                                            @else
+                                            <p class="card-text pe-5"><strong><i class="bi bi-currency-dollar"></i></strong>{{ $job->salary }}</p>
+
+                                            @endif
                                             <p class="card-text"><strong><i class="bi bi-clock"></i></strong>{{ $job->type }}</p>
                                         </div>
                                     </div>

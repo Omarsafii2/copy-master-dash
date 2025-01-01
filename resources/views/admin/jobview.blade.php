@@ -308,7 +308,7 @@
                 <p class="mb-0 ">Salary</p>
               </div>
               <div class="col-sm-9">
-                <p class="text-muted mb-0 fs-4">{{number_format($job->salary, 0) . " JOD" }}</p></p>
+                <p class="text-muted mb-0 fs-4">{{number_format($job->min_salary, 0)  }} &nbsp;<i class="bi bi-arrow-right"></i> &nbsp;{{number_format($job->salary, 0) ." JOD" }}</p>
               </div>
             </div>
             </div>

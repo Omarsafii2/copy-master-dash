@@ -19,8 +19,14 @@
     <!-- Contacts Table -->
     <div class="row">
     <div class="mb-3">
-              <input type="text" id="searchInput" class="form-control" placeholder="Search users..." />
-            </div>
+    <div class="col-md-12">
+                <form action="/admin/contact" method="GET" id="jobSearchForm">
+                    <div class="input-group">
+                        <input type="text" name="search" id="jobSearch" class="form-control" placeholder="Search jobs..." value="{{ request('search') }}">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
+                </form>
+            </div>               </div>
         <div class="col-12">
             <table class="table table-striped">
                 <thead class="thead-dark">
@@ -34,7 +40,9 @@
 
                 <tbody>
                     @foreach ($contacts as $contact)
-                        <tr>
+                    @if ($contact->reply == null)
+
+                    <tr>
                             <td>
                                 <div class="d-flex px-2 py-1">
                                     <div class="d-flex flex-column justify-content-center">
@@ -56,8 +64,43 @@
                                 <a href="{{url('admin/'.$contact->id.'/contactview')}}" class="text-decoration-none">
                                     <i class="bi bi-eye me-2"></i>
                                 </a>
+                                <button class="btn btn-danger btn-sm disabled"">Waiting</button>
                             </td>
                         </tr>
+
+                    @else
+
+                    <tr>
+                            <td>
+                                <div class="d-flex px-2 py-1">
+                                    <div class="d-flex flex-column justify-content-center">
+                                        <h6 class="mb-0 text-bold">{{$contact->name}}</h6>
+                                    </div>
+                                </div>   
+                            </td>
+
+                            <td class="align-middle">
+                                <a href="mailto:{{$contact->email}}" class="text-xs text-decoration-none text-secondary mb-0">{{$contact->email}}</a>
+                            </td>
+
+                            <td class="align-middle">
+                                <h6 class="mub-0 text-muted">{{$contact->subject}}</h6>
+                            </td>
+
+                            <td class="align-middle gap-2">
+                                <!-- View Icon -->
+                                <a href="{{url('admin/'.$contact->id.'/contactview')}}" class="text-decoration-none">
+                                    <i class="bi bi-eye me-2"></i>
+                                </a>
+                                <button class="btn btn-success btn-sm disabled"">Replied</button>
+                            </td>
+                        </tr>
+
+
+
+                    
+                    @endif
+                        
                     @endforeach
                 </tbody>
             </table>
@@ -71,23 +114,6 @@
 </div>
 
 <!-- Search Script -->
-<script>
-    document.getElementById('searchInput').addEventListener('input', function() {
-        const searchValue = this.value.toLowerCase();
-        const rows = document.querySelectorAll('table tbody tr');
 
-        rows.forEach(row => {
-            const name = row.querySelector('td').innerText.toLowerCase();
-            const phone = row.querySelector('td:nth-child(2)').innerText.toLowerCase();
-
-            // Show or hide row based on search query
-            if (name.includes(searchValue) || phone.includes(searchValue)) {
-                row.style.display = '';  // Show row
-            } else {
-                row.style.display = 'none';  // Hide row
-            }
-        });
-    });
-</script>
 
 </x-layout>

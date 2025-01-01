@@ -6,170 +6,7 @@
         <div class="d-flex justify-content-between ">
             
             <h1 class="text-secondary">Companies</h1>
-            <div class="mt-2">
-                <button type="button" class="btn btn-primary p-2" data-bs-toggle="modal" data-bs-target="#formModal">
-                    <i class="bi bi-plus-circle"></i> Add Company
-                </button>
-            </div>
-
-
         
-
-            <div class="modal fade" id="formModal" tabindex="-1" aria-labelledby="formModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header ">
-                            <h5 class="modal-title text-secondary" id="formModalLabel">Add New Company</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-
-                        
-
-
-
-                        <div class="modal-body">
-                            <form  action="/admin/addcompany" method="post" enctype="multipart/form-data">
-                                @csrf
-                                <div class="row">
-                                    <div class="col-md-12 mb-4">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <label class="form-label" for="name">Company Name</label>
-                                            <input type="text" name="name" id="name" autofocus class="form-control form-control-lg" required />
-                    
-                                            @error('name')
-                                                <span class="text-danger small">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                 
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-12 mb-3">
-                                            <label for="category" class="form-label">company category</label>
-                                            <select class="form-select" id="category" name="category" required>
-                                                <option  value="" disabled selected>company category</option>
-                                                <option value="IT">IT</option>
-                                                <option value="Finance" >Finance</option>
-                                                <option value="Healthcare" >Healthcare</option>
-                                                <option value="Education" >Education</option>
-                                                <option value="Retail" >Retail</option>
-                                                <option value="Manufacturing" >Manufacturing</option>
-                                                <option value="Construction" >Construction</option>
-                                                <option value="Real Estate" >Real Estate</option>
-                                                <option value="Transportation" >Transportation</option>
-                                                <option value="Hospitality" >Hospitality</option>
-                                                <option value="Agriculture" >Agriculture</option>
-                                                <option value="Energy" >Energy</option>
-                                                <option value="Telecommunications" >Telecommunications</option>
-                                                <option value="Media" >Media</option>
-                                                <option value="Entertainment" >Entertainment</option>
-                                                <option value="Legal" >Legal</option>
-                                                <option value="Consulting">Consulting</option>
-                                                <option value="Nonprofit" >Nonprofit</option>
-                                                <option value="Government" >Government</option>
-                                                <option value="Automotive">Automotive</option>
-                                                <option value="Aerospace" >Aerospace</option>
-                                                <option value="Fashion" >Fashion</option>
-                                                <option value="Food and Beverage" >Food and Beverage</option>
-                                                <option value="Pharmaceuticals" >Pharmaceuticals</option>
-                                                <option value="Insurance" >Insurance</option>
-                                                <option value="Other" >Other</option>                                    
-                                            </select>
-                                    </div>    
-                                    <div>
-                                            @error('category')
-                                                <span class="text-danger small">{{ $message }}</span>
-                                            @enderror
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col mb-3 pb-2">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <label class="form-label" for="emailAddress">Email</label>
-                                            <input type="email" id="emailAddress" name="email" required class="form-control form-control-lg" />
-                                            
-                                            @error('email')
-                                                <span class="text-danger small">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <label class="form-label" for="password">Password</label>
-                                            <input type="password" name="password" id="password" required class="form-control form-control-lg">
-                                         
-                                            @error('password')
-                                                <script>alert("{{ $message }}");</script>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <label class="form-label" for="c-password">Confirm Password</label>
-                                            <input type="password" name="cpassword" id="c-password" required class="form-control form-control-lg">
-                                            
-                                            @error('cpassword')
-                                                <span class="text-danger small">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row ">
-                                    <div class="col-md-8 mb-4 pb-2">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <div class="form-group">
-                                                <label for="img">upload images</label>
-                                                <input id="img" type="file"  name="img" class="form-control">
-                                            </div>
-                                            @error('img')
-                                                <span class="text-danger small">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                        <div class="col-md-4 mt-4 pb-2 ">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <div class="form-group">
-                                            <p>jpg,png.jpeg</p>    
-                                            </div>    
-                                        </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <label class="form-label" for="Address">Address</label>
-                                            <input type="text" name="address" id="adress" required class="form-control form-control-lg">
-                                         
-                            
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <label class="form-label" for="license">license</label>
-                                            <input type="text" name="business_license" id="license" required class="form-control form-control-lg">
-                                            
-                                        </div>
-                                    </div>
-                                </div>
-
-                               
-
-                                <div class="mt-4 pt-2 text-center">
-                                    <button class="btn btn-primary btn-lg w-100" type="submit">Add Company</button>
-                                </div>
-                            </form>
-                        </div>
-
-                    </div>
-                </div>
-             </div>
-
            
 
         </div>
@@ -179,8 +16,14 @@
 
     <div class="row">
                 <div class="mb-3">
-                <input type="text" id="searchInput" class="form-control" placeholder="Search users..." />
-                </div>
+                <div class="col-md-12">
+                <form action="/admin/company" method="GET" id="jobSearchForm">
+                    <div class="input-group">
+                        <input type="text" name="search" id="jobSearch" class="form-control" placeholder="Search jobs..." value="{{ request('search') }}">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </div>
+                </form>
+            </div>                  </div>
         <div class="col">
             <div class="table-responsive" >
             <table class="table table-striped">
@@ -235,9 +78,7 @@
                                 </a>
 
 
-                                <!-- Delete Button -->
-                               
-
+    
 
                                
 
@@ -262,23 +103,5 @@
     
     </div>
 
-    <script>
-          document.getElementById('searchInput').addEventListener('input', function() {
-        const searchValue = this.value.toLowerCase();
-        const rows = document.querySelectorAll('table tbody tr');
-
-        rows.forEach(row => {
-            const name = row.querySelector('td').innerText.toLowerCase();
-            const phone = row.querySelector('td:nth-child(2)').innerText.toLowerCase();
-
-            // Show or hide row based on search query
-            if (name.includes(searchValue) || phone.includes(searchValue)) {
-                row.style.display = '';  // Show row
-            } else {
-                row.style.display = 'none';  // Hide row
-            }
-        });
-    });
-    </script>
-
+   
 </x-layout>
