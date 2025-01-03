@@ -66,21 +66,37 @@ class UserController extends Controller
     }
 
     public function login(Request $request)
-{
-    $request->validate([
-        'email' => 'required|email',
-        'password' => 'required',
-    ]);
-
-    if (Auth::guard('user')->attempt($request->only('email', 'password'))) {
-        $request->session()->regenerate();
-        return redirect()->route('users.home');
+    {
+        // Validate the input
+        $request->validate([
+            'email' => 'required|email',
+            'password' => 'required',
+        ]);
+    
+        // Find the user by email
+        $user = User::where('email', $request->email)->first();
+    
+        if ($user) {
+            // Check if the user is active
+            if ($user->is_active == 'inactive') {
+                return back()->withErrors([
+                    'email' => 'Your account is inactive. Please contact support.',
+                ]);
+            }
+    
+            // Attempt to log in the user
+            if (Auth::guard('user')->attempt($request->only('email', 'password'))) {
+                $request->session()->regenerate();
+                return redirect()->route('users.home');
+            }
+        }
+    
+        // If login fails or user doesn't exist
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ]);
     }
-
-    return back()->withErrors([
-        'email' => 'The provided credentials do not match our records.',
-    ]);
-}
+    
 
 public function logout()
 {

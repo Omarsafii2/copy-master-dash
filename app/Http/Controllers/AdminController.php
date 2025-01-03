@@ -27,10 +27,7 @@ class AdminController extends Controller
             'email' => 'required|email', // Ensure a valid email format
             'password' => 'required|min:6', // Minimum password length
         ], [
-            'email.required' => 'The email field is required.',
-            'email.email' => 'Please enter a valid email address.',
-            'password.required' => 'The password field is required.',
-            'password.min' => 'The password must be at least 6 characters long.',
+            "email" => "Invalid email or password.",
         ]);
     
         $credentials = $request->only('email', 'password');
@@ -43,7 +40,7 @@ class AdminController extends Controller
     
         // Redirect back with an error message if login fails
         return redirect()->route('admin.login')->withErrors([
-            'login_error' => 'Invalid email or password.',
+            'email' => 'Invalid email or password.',
         ]);
     }
     

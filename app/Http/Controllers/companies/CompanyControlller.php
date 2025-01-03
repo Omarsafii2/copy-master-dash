@@ -73,6 +73,16 @@ class CompanyControlller extends Controller
             'password' => 'required|min:6',
         ]);
 
+        $company = Company::where('email', $request->email)->first();
+    
+       
+            // Check if the user is active
+            if ($company->is_active == 'inactive') {
+                return back()->withErrors([
+                    'email' => 'Your account is inactive. Please contact support.',
+                ]);
+            }
+
         // Attempt to authenticate using the company guard
         if (Auth::guard('company')->attempt($request->only('email', 'password'))) {
             // Authentication successful, redirect to the company dashboard
