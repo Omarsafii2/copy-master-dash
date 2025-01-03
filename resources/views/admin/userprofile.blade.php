@@ -65,109 +65,7 @@
                                 @method('patch')
                                 <input type="hidden" name="id" value="{{ $users->id }}">
                                 <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <label class="form-label" for="firstName">First Name</label>
-                                            <input type="text" name="name" id="firstName" autofocus class="form-control form-control-lg" value="{{ $users->name }}" required />
-                                            @error('name')
-                                                <span class="text-danger small">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <label class="form-label" for="lastName">Last Name</label>
-                                            <input type="text" id="lastName" name="last_name" class="form-control form-control-lg" value="{{ $users->last_name }}" required />
-                                            
-                                            @error('last_name')
-                                                <span class="text-danger small">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col mb-3 pb-2">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <label class="form-label" for="emailAddress">Email</label>
-                                            <input type="email" id="emailAddress" name="email" required class="form-control form-control-lg" value="{{ $users->email }}" />
-                                           
-                                            @error('email')
-                                                <span class="text-danger small">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-6 mb-3 pb-2">
-                                        <div data-mdb-input-init class="form-outline">
-                                        <label class="form-label" for="title">jop title</label>
-                                            <input type="text" id="title" name="title"  class="form-control form-control-lg" value="{{ $users->title }}" />
-                                            
                                     
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 mb-3 ">
-                                    <div data-mdb-input-init class="form-outline">
-                                    <label class="form-label" for="cv">CV Link</label>
-                                    <input type="text" id="cv" name="cv" class="form-control form-control-lg" value="{{ $users->cv }}"  >
-
-
-
-                                    </div>
-                            
-
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12 mb-3">
-                                            <label for="educationLevel" class="form-label">Education Level</label>
-                                            <select class="form-select" id="educationLevel" name="education" required>
-                                                <option  value="" disabled selected>education level</option>
-                                                <option name="education" value="bechlore" {{ $users->education== 'bechlore' ? 'selected' : '' }}>Bechelor</option>
-                                                <option name="education" value="master" {{ $users->education== 'master' ? 'selected' : '' }}>Master</option>
-                                                <option name="education" value="phd" {{ $users->education== 'phd' ? 'selected' : '' }}>PhD</option>
-                                                <option name="education" value="doctorate" {{ $users->education== 'doctorate' ? 'selected' : '' }}>Doctorate</option>
-                                                <option name="education" value="other" {{ $users->education== 'other' ? 'selected' : '' }}>Other</option>
-                                            </select>
-                                            @error('education')
-                                                <span class="text-danger small">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <label class="form-label" for="experince">experince</label>
-                                            <input type="text" name="experince" id="experince" required class="form-control form-control-lg" value="{{ $users->experince }}">
-                                            
-
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <div data-mdb-input-init class="form-outline">
-                                             <label class="form-label" for="specalaization">specalaization</label>
-                                            <input type="text" name="specalaization" id="specalaization" required class="form-control form-control-lg" value="{{ $users->specalaization }}">
-                                            
-                            
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row ">
-                                    <div class="col-md-8 mb-3 pb-2">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <div class="form-group">
-                                                <label for="img">upload images</label>
-                                                <input id="img" type="file"  name="img" class="form-control" >
-                                                
-                                            </div>
-                                            @error('img')
-                                                <span class="text-danger small">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
                                     <div class="col-md-6 mt-4 pb-2 ">
                                         <div data-mdb-input-init class="form-outline">
                                             <div class="form-group">
@@ -179,48 +77,7 @@
                                         </div>
                                       </div>
 
-                                <div class="row">
-                                <div class="col-md-6 mb-4 pb-2">
-                                    <div data-mdb-input-init class="form-outline">
-                                        <div class="form-group">
-                                            <label for="phone">Phone Number:</label>
-                                            <input id="phone" type="tel" name="phone_number" class="form-control" value="{{ $users->phone_number }}">
-                                        </div>
-                                        @error('phone_number')
-                                            <span class="text-danger small">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-
-                                    <div class="col-md-6 mb-3">
-                                        <h6 class="mb-2 pb-1">Gender:</h6>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="gender" id="femaleGender" value="female"   {{ $users->gender == 'male' ? 'checked' : '' }} />
-                                            <label class="form-check-label" for="femaleGender">Female</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="gender" id="maleGender" value="male"     {{ $users->gender == 'male' ? 'checked' : '' }} />
-                                            <label class="form-check-label" for="maleGender">Male</label>
-                                        </div>
-                                        @error('gender')
-                                            <span class="text-danger small">{{ $message }}</span>
-                                        @enderror
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12 mb-3 pb-2">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <div class="form-group">
-                                                <label for="bio">about</label>
-                                                <input id="bio" type="text" name="bio" class="form-control" value="{{$users->bio}}">
-                                            </div>
-                                            @error('phone_number')
-                                                <span class="text-danger small">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-
-                                   
+                                
 
                                 <div class="mt-3 pt-2 text-center">
                                     <button class="btn btn-primary btn-lg w-100" type="submit">Edit User</button>

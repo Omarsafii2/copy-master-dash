@@ -246,25 +246,14 @@
                     @enderror
                 </div>
 
-                <div class="d-flex justify-content-between mb-2">
-                    <a href="#" class="text-decoration-none text-primary">Forgot password?</a>
-                </div>
+               
 
                 <button type="submit" class="btn btn-login text-white">
                     <i class="bi bi-box-arrow-in-right me-2"></i>Login
                 </button>
             </form>
 
-            <div class="divider">
-                <span>or continue with</span>
-            </div>
-
-            <div class="social-login">
-                <a href="#" class="social-btn">
-                    <i class="bi bi-google"></i>
-                    <span>Google</span>
-                </a>
-            </div>
+           
 
             <p class="text-center mt-2">
                 Don't have an account? 

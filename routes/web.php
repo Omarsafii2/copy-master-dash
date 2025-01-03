@@ -108,7 +108,7 @@ Route::controller(AdminController::class)->group(function () {
            Route::delete('/company/delete/{id}', 'deleteProfile')->name('company.delete');
            Route::post('/company/addPost','addPost')->name('company.post');
            Route::get('/company/editPost/{id}','editPost')->name('company.editpost');
-           Route::post('/company/updatePost/{id}','updatePost')->name('company.updatepost');
+           Route::put('/company/updatePost/{id}','updatePost')->name('company.updatepost');
            Route::delete('/company/deletePost/{id}','deletePost')->name('company.deletepost');
            Route::get('/company/applications/{id}','applications')->name('company.applications');
            Route::get('/company/userProfile/{id}','UserProfile')->name('company.userprofile');

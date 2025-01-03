@@ -63,87 +63,7 @@
                                 @csrf
                                 @method('patch')
                                 <input type="hidden" name="id" value="{{ $company->id }}">
-                                <div class="row">
-                                    <div class="col-md-12 mb-4">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <label class="form-label" for="name">Company Name</label>
-                                            <input type="text" name="name" id="name" autofocus class="form-control form-control-lg" value="{{ $company->name }}" required />
-                    
-                                            @error('name')
-                                                <span class="text-danger small">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                 
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-12 mb-3">
-                                            <label for="category" class="form-label">company category</label>
-                                            <select class="form-select" id="category" name="category" required>
-                                                <option  value="" disabled selected>company category</option>
-                                                <option value="IT" {{ $company->category == 'IT' ? 'selected' : ''}}>IT</option>
-                                                <option value="Finance" {{ $company->category == 'Finance' ? 'selected' : ''}} >Finance</option>
-                                                <option value="Healthcare" {{ $company->category == 'Healthcare' ? 'selected' : ''}}>Healthcare</option>
-                                                <option value="Education" {{ $company->category == 'Education' ? 'selected' : ''}} >Education</option>
-                                                <option value="Retail" {{ $company->category == 'Retail' ? 'selected' : ''}}>Retail</option>
-                                                <option value="Manufacturing" {{ $company->category == 'Manufacturing' ? 'selected' : ''}} >Manufacturing</option>
-                                                <option value="Construction" {{ $company->category == 'Construction' ? 'selected' : ''}}>Construction</option>
-                                                <option value="Real Estate" {{ $company->category == 'Real Estate' ? 'selected' : ''}}>Real Estate</option>
-                                                <option value="Transportation" {{$company->category == 'Transportation' ? 'selected' : ''}} >Transportation</option>
-                                                <option value="Hospitality" {{ $company->category == 'Hospitality' ? 'selected' : ''}} >Hospitality</option>
-                                                <option value="Agriculture" {{ $company->category == 'Agriculture' ? 'selected' : ''}} >Agriculture</option>
-                                                <option value="Energy" {{ $company->category == 'Energy' ? 'selected' : ''}} >Energy</option>
-                                                <option value="Telecommunications" {{ $company->category == 'Telecommunications' ? 'selected' : ''}} >Telecommunications</option>
-                                                <option value="Media" {{ $company->category == 'Media' ? 'selected' : ''}} >Media</option>
-                                                <option value="Entertainment" {{ $company->category == 'Entertainment' ? 'selected' : ''}} >Entertainment</option>
-                                                <option value="Legal" {{ $company->category == 'Legal' ? 'selected' : ''}} >Legal</option>
-                                                <option value="Consulting" {{ $company->category == 'Consulting' ? 'selected' : ''}} >Consulting</option>
-                                                <option value="Nonprofit" {{ $company->category == 'Nonprofit' ? 'selected' : ''}} >Nonprofit</option>
-                                                <option value="Government" {{ $company->category == 'Government' ? 'selected' : ''}}>Government</option>
-                                                <option value="Automotive"{{ $company->category == 'Automotive' ? 'selected' : ''}} >Automotive</option>
-                                                <option value="Aerospace" {{ $company->category == 'Aerospace' ? 'selected' : ''}}  >Aerospace</option>
-                                                <option value="Fashion"     {{ $company->category == 'Fashion' ? 'selected' : ''}} >Fashion</option>
-                                                <option value="Food and Beverage" {{ $company->category == 'Food and Beverage' ? 'selected' : ''}} >Food and Beverage</option>
-                                                <option value="Pharmaceuticals" {{ $company->category == 'Pharmaceuticals' ? 'selected' : ''}} >Pharmaceuticals</option>
-                                                <option value="Insurance" {{    $company->category == 'Insurance' ? 'selected' : ''}} >Insurance</option>
-                                                <option value="Other" {{ $company->category == 'Other' ? 'selected' : ''}} >Other</option>                                    
-                                            </select>
-                                    </div>    
-                                    <div>
-                                            @error('category')
-                                                <span class="text-danger small">{{ $message }}</span>
-                                            @enderror
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col mb-3 pb-2">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <label class="form-label" for="emailAddress">Email</label>
-                                            <input type="email" id="emailAddress" name="email" required class="form-control form-control-lg" value="{{ $company->email }}" />
-                                            
-                                            @error('email')
-                                                <span class="text-danger small">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-
-          
-
-                                <div class="row ">
-                                    <div class="col-md-6 mb-4 pb-2">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <div class="form-group">
-                                                <label for="img">upload images</label>
-                                                <input id="img" type="file"  name="img" class="form-control">
-                                            </div>
-                                            @error('img')
-                                                <span class="text-danger small">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
+                                
                                         <div class="col-md-6 mt-4 pb-2 ">
                                         <div data-mdb-input-init class="form-outline">
                                             <div class="form-group">
@@ -154,24 +74,6 @@
                                             </div>    
                                         </div>
                                       </div>
-
-                                <div class="row">
-                                    <div class="col-md-6 mb-3">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <label class="form-label" for="Address">Address</label>
-                                            <input type="text" name="address" id="adress" required class="form-control form-control-lg" value="{{ $company->address }}">
-                                         
-                            
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 mb-3">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <label class="form-label" for="license">license</label>
-                                            <input type="text" name="business_license" id="license" required class="form-control form-control-lg" value="{{ $company->business_license }}">
-                                            
-                                        </div>
-                                    </div>
-                                </div>
 
                                
 

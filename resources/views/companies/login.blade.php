@@ -246,9 +246,7 @@
                     @enderror
                 </div>
 
-                <div class="d-flex justify-content-between mb-3">
-                    <a href="#" class="text-decoration-none text-primary">Forgot password?</a>
-                </div>
+            
 
                 <button type="submit" class="btn btn-login text-white">
                     <i class="bi bi-box-arrow-in-right me-2"></i>Login

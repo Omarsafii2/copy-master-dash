@@ -68,118 +68,14 @@
                                 @csrf
                                 @method('patch')
                                 <input type="hidden" name="id" value="{{ $job->id }}">
-                                <div class="row">
-                                    <div class="col-md-12 mb-3">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <label class="form-label" for="title">Title</label>
-                                            <input type="text" name="title" id="title" autofocus class="form-control form-control-lg" value="{{ $job->title }}" required />
-                    
-                                            @error('title')
-                                                <span class="text-danger small">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                 
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-12 mb-3 pb-2">
-
-                                        <div data-mdb-input-init class="form-outline">
-                                                    <label for="category" class="form-label">Category</label>
-
-
-                                                    <select class="form-select" id="category" name="category">
-                                                        <option value="">Select Category</option>
-                                                        <option value="Information Technology">Information Technology</option>
-                                                        <option value="Design">Design</option>
-                                                        <option value="Marketing">Marketing</option>
-                                                        <option value="Education">Education</option>
-                                                        <option value="Accounting">Accounting</option>
-                                                        <option value="Healthcare">Healthcare</option>
-                                                        <option value="Engineering">Engineering</option>
-                                                        <option value="Logistics">Logistics</option>
-                                                        <option value="Management">Management</option>
-                                                        <option value="Tourism">Tourism</option>
-                                                        <option value="Media">Media</option>
-                                                        <option value="Agriculture">Agriculture</option>
-                                                        <option value="Manufacturing">Manufacturing</option>
-                                                        <option value="Public Services">Public Services</option>
-                                                    </select>
-                                                </div>      
-
-
-                                    </div>
-
-                                </div>
-
-             
-
-                                <div class="row">
-                                    <div class="col mb-3 pb-2">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <label class="form-label" for="description">Description</label>
-                                            <input type="text" id="description" name="description" required class="form-control form-control-lg" value="{{ $job->description }}" />
-                                            
-                                            @error('description')
-                                                <span class="text-danger small">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-md-6 mb-4 pb-2">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <div class="form-group">
-                                                    <label for="type" class="form-label">Type</label>
-                                                    <select class="form-select" id="type" name="type" required>
-                                                        <option  value="" disabled selected>offer type</option>
-                                                        <option name="type" value="job" {{ $job->type== 'job' ? 'selected' : '' }}>job</option>
-                                                        <option name="type" value="training" {{ $job->type== 'training' ? 'selected' : '' }}>training</option>
-                                                        <option name="type" value="part-time" {{ $job->type== 'part-time' ? 'selected' : '' }}>part-time</option>" 
-                                                    </select>
-                                            </div>
-                                        </div>
-                                    
-                                            @error('type')
-                                                <span class="text-danger small">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    <div class="col-md-6 mb-3  pb-2">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <div class="form-group">
-                                                <label for="location">Location</label>
-                                                <input id="location" type="text"  name="location" value="{{ $job->location }}" class="form-control">
-                                            </div>
-                                            @error('location')
-                                                <span class="text-danger small">{{ $message }}</span>
-                                            @enderror
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6 mb-3 pb-2">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <label for="salary" class="form-label">Salary</label>
-                                            <input type="number" name="salary" value="{{ $job->salary }}" class="form-control form-control-lg" id="salary" placeholder="Enter salary" />
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6 mb-3 pb-2">
-                                        <div data-mdb-input-init class="form-outline">
-                                            <label class="form-label" for="duration">Duration</label>
-                                            <input type="text" name="duration" id="duration" required class="form-control form-control-lg" value="{{ $job->duration }}" placeholder="Enter job duration" />
-                                        </div>
-                                    </div>
-                                </div>
-
+                               
                                 <div class="row">
                                 <div class="col-md-6 mb-3 pb-2 ">
                                         <div data-mdb-input-init class="form-outline">
                                             <div class="form-group">
-                                                <label for="status">Opean</label>
+                                                <label for="status">Open</label>
                                                <input type="radio" name="status" value="open"  class="form-check-input" {{ $job->status === 'open' ? 'checked' : ''}}> 
-                                               <label for="status">Closed</label>
+                                               <label for="status">Close</label>
                                                <input type="radio" name="status" value="closed"  class="form-check-input" {{ $job->status === 'closed' ? 'checked' : ''}}> 
                                             </div>    
                                         </div>

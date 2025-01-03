@@ -53,11 +53,11 @@ class AdminController extends Controller
         $totalUsers = User::count();
         $totalCompanies = Company::count();
         $totalJobs = Job::count();
-        $totalSubscriptions = Subscription::count();
+        $totalSubscriptions = Company::where('subscription_status', 'premium')->count();
         $totalReviews = Review::count();
     
         // Get the 5 newest subscriptions
-        $newestSubscriptions = Subscription::latest()->take(5)->get();
+        $newestSubscriptions = Company::where('subscription_status', 'primary')->latest()->take(5)->get();
     
         // Get the 5 newest job posts
         $newestJobs = Job::latest()->take(5)->get();
@@ -300,18 +300,6 @@ public function AdminStore(Request $request){
             // Validate incoming data
             $validatedData = $request->validate([
                 'id' => 'required|exists:users,id',
-                'name' => 'required|string|max:255',
-                'last_name' => 'required|string|max:255',
-                'email' => 'required|email|max:255|unique:users,email,' . $request->id,
-                'title' => 'nullable|string|max:255',
-                'cv' => 'nullable|string|max:255',
-                'education' => 'nullable',
-                'experince' => 'nullable|string|max:255',
-                'specalaization' => 'nullable|string|max:255',
-                'img' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-                'phone_number' => 'nullable|string|max:20',
-                'gender' => 'nullable|in:male,female',
-                'bio' => 'nullable|string|max:1000',
                 'is_active' => 'required',
             ]);
 
@@ -321,38 +309,14 @@ public function AdminStore(Request $request){
             $user = User::findOrFail($request->id);
 
 
-           if ($request->hasFile('img')) {
-        // Delete the old image if it exists and is not the default profile picture
-            if ($user->img && $user->img !== 'profile.png' && file_exists(public_path('uploads/user/' . $user->img))) {
-                unlink(public_path('uploads/user/' . $user->img));
-            }
 
-        // Upload the new image
-        $file = $request->file('img');
-        $filename = time() . '.' . $file->getClientOriginalExtension();
-        $file->move(public_path('uploads/user'), $filename);
 
-        // Assign the new image filename to the user
-        $user->img ='uploads/user/'.$filename;
-        } elseif (!$user->img) {
-            // If no image uploaded and no existing image, assign default profile picture
-            $user->img = 'uploads/user/profile.png';
-        }
+      
 
         
         
             // Update other user details
-            $user->name = $validatedData['name'];
-            $user->last_name = $validatedData['last_name'];
-            $user->email = $validatedData['email'];
-            $user->title = $validatedData['title'];
-            $user->cv = $validatedData['cv'];
-            $user->education= $validatedData['education'];
-            $user->experince = $validatedData['experince'];
-            $user->specalaization = $validatedData['specalaization'];
-            $user->phone_number = $validatedData['phone_number'];
-            $user->gender = $validatedData['gender'];
-            $user->bio = $validatedData['bio'];
+        
             $user->is_active = $validatedData['is_active'];
         
         
@@ -454,44 +418,16 @@ public function AdminStore(Request $request){
             public function CompanyUpdate(Request $request)
             {
               $request->validate([
-                'name' => 'required|string|max:255',
-                'category'=>'required',
-                'email' => 'required|email|max:255|unique:users,email,' . $request->id,
-                'img' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-                'address' => 'required|string|max:255',
-                'business_license' => 'required|string|max:255',
                 'is_active' => 'required',
               ]) ; 
 
               $company=Company::where('id','=',$request->id)->first();
 
-              if ($request->hasFile('img')) {
-                // Delete the old image if it exists and is not the default profile picture
-                    if ($company->img && $company->img !== 'profile.png' && file_exists(public_path('uploads/company/' . $company->img))) {
-                        unlink(public_path('uploads/company/' . $company->img));
-                    }
-        
-                // Upload the new image
-                $file = $request->file('img');
-                $filename = time() . '.' . $file->getClientOriginalExtension();
-                $file->move(public_path('uploads/company'), $filename);
-        
-                // Assign the new image filename to the user
-                $company->img ='uploads/company/'.$filename;
-                } elseif (!$company->img) {
-                    // If no image uploaded and no existing image, assign default profile picture
-                    $company->img = 'uploads/company/profile.png';
-                }
+             
 
-              $company->name = $request->name;
-              $company->category = $request->category;
-              $company->email = $request->email;
-              $company->address = $request->address;
-              $company->business_license = $request->business_license;
+             
               $company->is_active = $request->is_active;
-              if($company->subscription_id!=null){
-                $company->subscription_status='premium';
-            }
+        
               $company->save();
               return redirect()->route('admin.companyprofile' , ['id' => $company->id])
               ->with('success', 'company updated successfully.');
@@ -572,25 +508,13 @@ public function AdminStore(Request $request){
                 }
                 public function JobUpdate(Request $request){
                     $request->validate([
-                        'title'=>'required',
-                        'description'=>'required',
-                        'type'=>'required',
-                        'location'=>'required',
-                        'salary'=>'required',
-                        'duration'=>'required',
+                      
                         'status'=>'required',
-                        'category'=>'required',
                     ]);
 
                     $job=Job::where('id','=',$request->id)->first();
-                    $job->title=$request->title;
-                    $job->description=$request->description;
-                    $job->type=$request->type;
-                    $job->location=$request->location;
-                    $job->salary=$request->salary;
-                    $job->duration=$request->duration;
+                    
                     $job->status=$request->status;
-                    $job->category=$request->category;
                     $job->save();
                     return redirect()->route('admin.jobview',['id'=>$job->id] )
                     ->with('success', 'job updated successfully.');

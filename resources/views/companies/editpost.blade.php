@@ -11,8 +11,7 @@
         position: absolute;
         top: 0;
         left: 0;
-        width: 100%;
-        height: 100%;
+        
         z-index: 1;
     }
 
@@ -184,6 +183,7 @@
             <div class="col-md-6 offset-md-3 border p-3 ">
                 <form action="/company/updatePost/{{$job->id}}" method="post" enctype="multipart/form-data">
                     @csrf
+                    @method('PUT')
 
                     <input type="hidden" name="company_id" value="{{ Auth::user()->id }}">
 
@@ -211,20 +211,20 @@
 
                                 <select class="form-select pb-2 pt-2 " id="category" name="category">
                                     <option value="">Select Category</option>
-                                    <option value="Information Technology">Information Technology</option>
-                                    <option value="Design">Design</option>
-                                    <option value="Marketing">Marketing</option>
-                                    <option value="Education">Education</option>
-                                    <option value="Accounting">Accounting</option>
-                                    <option value="Healthcare">Healthcare</option>
-                                    <option value="Engineering">Engineering</option>
-                                    <option value="Logistics">Logistics</option>
-                                    <option value="Management">Management</option>
-                                    <option value="Tourism">Tourism</option>
-                                    <option value="Media">Media</option>
-                                    <option value="Agriculture">Agriculture</option>
-                                    <option value="Manufacturing">Manufacturing</option>
-                                    <option value="Public Services">Public Services</option>
+                                    <option value="Information Technology" {{ $job->category == 'Information Technology' ? 'selected' : '' }}>Information Technology</option>
+                                    <option value="Design" {{ $job->category == 'Design' ? 'selected' : '' }}>Design</option>
+                                    <option value="Marketing" {{ $job->category == 'Marketing' ? 'selected' : '' }}>Marketing</option>
+                                    <option value="Education" {{ $job->category == 'Education' ? 'selected' : '' }}>Education</option>
+                                    <option value="Accounting" {{ $job->category == 'Accounting' ? 'selected' : '' }}>Accounting</option>
+                                    <option value="Healthcare" {{ $job->category == 'Healthcare' ? 'selected' : '' }}>Healthcare</option>
+                                    <option value="Engineering" {{ $job->category == 'Engineering' ? 'selected' : '' }}>Engineering</option>
+                                    <option value="Logistics" {{ $job->category == 'Logistics' ? 'selected' : '' }}>Logistics</option>
+                                    <option value="Management" {{ $job->category == 'Management' ? 'selected' : '' }}>Management</option>
+                                    <option value="Tourism" {{ $job->category == 'Tourism' ? 'selected' : '' }}>Tourism</option>
+                                    <option value="Media" {{ $job->category == 'Media' ? 'selected' : '' }}>Media</option>
+                                    <option value="Agriculture" {{ $job->category == 'Agriculture' ? 'selected' : '' }}>Agriculture</option>
+                                    <option value="Manufacturing" {{ $job->category == 'Manufacturing' ? 'selected' : '' }}>Manufacturing</option>
+                                    <option value="Public Services" {{ $job->category == 'Public Services' ? 'selected' : '' }}>Public Services</option>
                                 </select>
                             </div>
 
@@ -242,9 +242,9 @@
                                     <label for="type" class="form-label">Type</label>
                                     <select class="form-select" id="type" name="type" required>
                                         <option value="" disabled selected>offer type</option>
-                                        <option name="type" value="job">job</option>
-                                        <option name="type" value="training">training</option>
-                                        <option name="type" value="part-time">part-time</option>"
+                                        <option name="type" value="job" {{ $job->type == 'job' ? 'selected' : '' }}>job</option>
+                                        <option name="type" value="training" {{ $job->type == 'training' ? 'selected' : '' }}>training</option>
+                                        <option name="type" value="part-time" {{ $job->type == 'part-time' ? 'selected' : '' }}>part-time</option>"
                                     </select>
                                 </div>
                             </div>
@@ -282,14 +282,10 @@
                             </div>
                         </div>
                     </div>
+                    
 
                     <div class="row">
-
-
-
-
-
-                        <div class="col-md-6 mb-3 pb-2">
+                        <div class="col-md-12 mb-3 pb-2">
                             <div data-mdb-input-init class="form-outline">
                                 <label class="form-label" for="description">Description</label>
                                 <textarea name="description" id="description" rows="" class="form-control form-control-md">{{$job->description}}</textarea>
@@ -298,15 +294,17 @@
                                 @enderror
                             </div>
                         </div>
+                    </div>
 
-
-                        <div class="col-md-6 mb-3 pb-2 ">
+                    <div class="row">
+                    <div class="col-md-12 mb-3 pb-2 ">
                             <div data-mdb-input-init class="form-outline">
                                 <div class="form-group">
-                                    <label for="status">Opean</label>
-                                    <input type="radio" name="status" value="open" class="form-check-input">
-                                    <label for="status">Closed</label>
-                                    <input type="radio" name="status" value="closed" class="form-check-input">
+                                <label for="status">Open</label>
+                                <input type="radio" name="status" value="open" class="form-check-input" {{ $job->status == 'open' ? 'checked' : '' }}>
+                                <label for="status">Closed</label>
+                                <input type="radio" name="status" value="closed" class="form-check-input" {{ $job->status == 'closed' ? 'checked' : '' }}>
+
                                 </div>
                             </div>
                         </div>
