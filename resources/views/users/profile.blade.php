@@ -136,6 +136,14 @@
         </x-userNav>
     </header>
 
+    @if ($user->phone_number == null || $user->cv == null || $user->bio == null ||$user->experince==null || $user->country==null ) 
+
+<div class="alert alert-warning alert-dismissible fade show container mt-2" role="alert" id="info-message" style="transition: opacity 0.5s;">
+              <p>Please Complete Your Profile</p>
+</div>
+
+@endif
+
 
 
 <div class="d-flex justify-content-end mt-3 container card-flex shadow">
@@ -478,7 +486,6 @@
                             <div class="mb-3">
                                 <p class="mb-1"><strong>Category:</strong> {{ $application->jobs->category }}</p>
                                 <p class="mb-1"><strong>Location:</strong> {{ $application->jobs->location }}</p>
-                                <p class="mb-1"><strong>Description:</strong> {{ $application->jobs->description }}</p>
                                 
                             </div>
 

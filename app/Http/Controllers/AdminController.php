@@ -117,7 +117,7 @@ class AdminController extends Controller
                       ->orWhere('role', 'like', '%' . $search . '%'); // Search by subscription start date
                 });
             }
-    $admins =$query->orderBy('id', 'desc')->paginate(10);
+    $admins =$query->orderBy('id', 'desc')->paginate(6);
     return view('admin.manage', ['admins' => $admins]);
 }
 
@@ -238,7 +238,7 @@ public function AdminStore(Request $request){
     }
 
     // Apply sorting and paginate the results
-    $users = $query->orderBy('id', 'desc')->paginate(10);
+    $users = $query->orderBy('id', 'desc')->paginate(6);
 
     // Pass users and the search query to the view
     return view('admin.user', ['users' => $users]);
@@ -354,7 +354,7 @@ public function AdminStore(Request $request){
                     }
 
                     // Apply sorting and paginate the results
-                    $companies = $query->orderBy('id', 'desc')->paginate(10);
+                    $companies = $query->orderBy('id', 'desc')->paginate(6);
 
                     // Pass companies and the search query to the view
                     return view('admin.company', ['companies' => $companies]);
@@ -464,7 +464,7 @@ public function AdminStore(Request $request){
                  }
              
                  // Order the results and paginate
-                 $jobs = $query->orderBy('id', 'desc')->paginate(10);
+                 $jobs = $query->orderBy('id', 'desc')->paginate(6);
              
                  // Return the view with the jobs data
                  return view('admin.job', ['jobs' => $jobs]);
@@ -553,7 +553,7 @@ public function AdminStore(Request $request){
                 });
             }
         
-            $subscriptions = $query->orderBy('id', 'desc')->paginate(10);
+            $subscriptions = $query->orderBy('id', 'desc')->paginate(6);
         
             return view('admin.subscriptions', ['subscriptions' => $subscriptions]);
         }
@@ -604,7 +604,7 @@ public function AdminStore(Request $request){
                       ->orWhere('subject', 'like', '%' . $search . '%'); // Search by subscription start date
                 });
             }
-            $contacts =$query->orderBy('id', 'desc')->paginate(10); // Ascending order
+            $contacts =$query->orderBy('id', 'desc')->paginate(6); // Ascending order
             return view('admin.contact', ['contacts'=>$contacts]);
         }
 

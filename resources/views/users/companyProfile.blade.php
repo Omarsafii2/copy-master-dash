@@ -208,15 +208,8 @@
               </div>
             </div>
             <hr>
-            <div class="row">
-              <div class="col-sm-3 pb-2">
-                <p class="mb-0">License</p>
-              </div>
-              <div class="col-sm-9">
-                <a href="{{$company->business_license}}"class=" mb-0 text-decoration-none text-primary">{{$company->name." license"}}</a>
-              </div>
-            </div>
-            <hr>
+         
+        
             <div class="row">
               <div class="col-sm-3 pb-2">
                 <p class="mb-0">Subscription</p>
@@ -226,15 +219,7 @@
               </div>
             </div>
             <hr>
-            <div class="row">
-              <div class="col-sm-3 pb-2">
-                <p class="mb-0">Expiry</p>
-              </div>
-              <div class="col-sm-9">
-                <p class="text-muted mb-0">{{$company->subscription_expiry}}</p>
-              </div>
-            </div>
-           <hr>
+         
            <div class="row">
               <div class="col-sm-3 pb-3">
                 <p class="mb-0">Status</p>
